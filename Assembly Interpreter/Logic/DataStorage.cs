@@ -12,7 +12,12 @@ namespace Assembly_Interpreter
             memory = new float[memLength];
 
             if (fillWithZeroes)
-                memory = memory.Select(x => 0f).ToArray();
+                SetToZero();
+        }
+
+        public void SetToZero()
+        {
+            memory = memory.Select(x => 0f).ToArray();
         }
 
         public float GetData(int pos)

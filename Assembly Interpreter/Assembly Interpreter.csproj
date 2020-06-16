@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Commands\ADD.cs" />
+    <Compile Include="Logic\Commands\SUB.cs" />
+    <Compile Include="Logic\Commands\STR.cs" />
+    <Compile Include="Logic\Element.cs" />
+    <Compile Include="Logic\Commands\LDR.cs" />
+    <Compile Include="Logic\Opcode.cs" />
+    <Compile Include="Logic\OperandType.cs" />
     <Compile Include="Logic\Program.cs" />
     <Compile Include="Logic\Command.cs" />
     <Compile Include="Logic\DataStorage.cs" />

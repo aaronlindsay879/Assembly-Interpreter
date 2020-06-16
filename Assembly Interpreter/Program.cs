@@ -76,33 +76,42 @@ namespace Assembly_Interpreter
 
             Button button = new Button
             {
-                Size = new Size(80, 40),
+                Size = new Size(60, 50),
                 Location = new Point(5, 505),
-                Text = "Run code",
+                Text = "Run\r\n code",
                 Name = "RunCode"
             };
 
             Button buttonTwo = new Button
             {
-                Size = new Size(80, 40),
-                Location = new Point(85, 505),
-                Text = "Stop code",
+                Size = new Size(60, 50),
+                Location = new Point(65, 505),
+                Text = "Stop\r\n code",
+                Name = "StopCode"
+            };
+
+            Button buttonThree = new Button
+            {
+                Size = new Size(60, 50),
+                Location = new Point(125, 505),
+                Text = "Reset",
                 Name = "StopCode"
             };
 
             Label delayLabel = new Label
             {
-                Size = new Size(80, 20),
-                Location = new Point(165, 505),
+                Size = new Size(50, 20),
+                Location = new Point(195, 505),
                 Text = "Delay (s)"
             };
 
             NumericUpDown delay = new NumericUpDown
             {
-                Size = new Size(80, 20),
-                Location = new Point(165, 525),
+                Size = new Size(50, 20),
+                Location = new Point(195, 525),
                 Increment = 0.1M,
                 DecimalPlaces = 1,
+                Value = 0.5M,
                 Name = "Delay"
             };
 
@@ -127,6 +136,7 @@ namespace Assembly_Interpreter
             //Add event listeners to run code and stop code buttons
             button.Click += new EventHandler(RunCode_Click);
             buttonTwo.Click += new EventHandler(StopCode_Click);
+            buttonThree.Click += new EventHandler(Reset_Click);
 
             //Adds line numbers to textbox
             for (int i = 0; i < 30; i++)
@@ -137,11 +147,12 @@ namespace Assembly_Interpreter
             Controls.Add(textBox);
             Controls.Add(button);
             Controls.Add(buttonTwo);
+            Controls.Add(buttonThree);
             Controls.Add(delayLabel);
             Controls.Add(delay);
             Controls.Add(memory);
             Controls.Add(registers);
-            Size = new System.Drawing.Size(1000, 600);
+            Size = new System.Drawing.Size(1000, 620);
 
             //Ensures correct item is selected
             ActiveControl = textBox;
@@ -166,8 +177,19 @@ namespace Assembly_Interpreter
 
         public void StopCode_Click(object sender, EventArgs e)
         {
-            currentInstruction = -1;
             runThread.Abort();
+        }
+
+        public void Reset_Click(object sender, EventArgs e)
+        {
+            memory.SetToZero();
+            registers.SetToZero();
+
+            RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
+            textBox.SelectionStart = 2 * currentInstruction;
+            textBox.SelectionLength = 2;
+            textBox.SelectionBackColor = Color.Transparent;
+            currentInstruction = -1;
         }
 
         [STAThread]
