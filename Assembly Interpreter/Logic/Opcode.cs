@@ -6,6 +6,8 @@
         LDR,
         STR,
         ADD,
-        SUB
+        SUB,
+        B,
+        BEQ
     }
 }

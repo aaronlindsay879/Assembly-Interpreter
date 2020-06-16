@@ -13,7 +13,7 @@ namespace Assembly_Interpreter
         private Opcode opcode;
         private Operand operand;
 
-        private Opcode Opcode { get => opcode; set => opcode = value; }
+        public Opcode Opcode { get => opcode; set => opcode = value; }
         public Operand Operand { get => operand; set => operand = value; }
 
         public Command(string input)
@@ -75,7 +75,7 @@ namespace Assembly_Interpreter
             return 0f;
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay)
         {
             switch (opcode)
             {
@@ -95,6 +95,13 @@ namespace Assembly_Interpreter
                     SUB(operand, ref memory, ref registers);
                     break;
 
+                case Opcode.B:
+                    B(operand, ref memory, ref registers, ref currentInstruction, delay);
+                    break;
+
+                case Opcode.BEQ:
+                    BEQ(operand, ref memory, ref registers, ref currentInstruction, delay);
+                    break;
             }
         }
     }

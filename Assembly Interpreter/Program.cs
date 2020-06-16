@@ -41,17 +41,21 @@ namespace Assembly_Interpreter
             {
                 RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
 
-                if (currentInstruction != 0)
-                {
-                    textBox.SelectionStart = 2 * (currentInstruction - 1);
-                    textBox.SelectionLength = 2;
-                    textBox.SelectionBackColor = Color.Transparent;
-                }
+                ClearAllHighlighting();
 
                 textBox.SelectionStart = 2 * currentInstruction;
                 textBox.SelectionLength = 2;
                 textBox.SelectionBackColor = Color.Red;
             }
+        }
+
+        public void ClearAllHighlighting()
+        {
+            RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
+            
+            textBox.SelectionStart = 0;
+            textBox.SelectionLength = 60;
+            textBox.SelectionBackColor = Color.Transparent;
         }
 
         void InitComponents()
@@ -160,6 +164,8 @@ namespace Assembly_Interpreter
 
         public void RunCode_Click(object sender, EventArgs e)
         {
+            currentInstruction = 0;
+
             //Get the text from the textbox, and split on every newline
             string textBox = Controls["Code"].Text.Trim();
             string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
@@ -186,11 +192,8 @@ namespace Assembly_Interpreter
             memory.SetToZero();
             registers.SetToZero();
 
-            RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
-            textBox.SelectionStart = 0;
-            textBox.SelectionLength = 60;
-            textBox.SelectionBackColor = Color.Transparent;
-            currentInstruction = -1;
+            ClearAllHighlighting();
+            currentInstruction = 0;
         }
 
         [STAThread]
