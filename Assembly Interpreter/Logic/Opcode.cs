@@ -2,6 +2,7 @@
 {
     public enum Opcode
     {
+        NONE,
         LDR,
         STR,
         ADD,

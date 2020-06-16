@@ -21,7 +21,10 @@ namespace Assembly_Interpreter.Logic
             foreach (Command command in commands)
             {
                 Thread.Sleep((int)(delay * 1000));
-                command.Execute(ref memory, ref registers);
+
+                if (!command.IsNull())
+                    command.Execute(ref memory, ref registers);
+
                 currentInstruction++;
             }
         }

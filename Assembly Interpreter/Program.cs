@@ -161,7 +161,7 @@ namespace Assembly_Interpreter
         public void RunCode_Click(object sender, EventArgs e)
         {
             //Get the text from the textbox, and split on every newline
-            string textBox = Controls["Code"].Text;
+            string textBox = Controls["Code"].Text.Trim();
             string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
 
             //Convert all the strings into commands
@@ -182,12 +182,13 @@ namespace Assembly_Interpreter
 
         public void Reset_Click(object sender, EventArgs e)
         {
+            StopCode_Click(sender, e);
             memory.SetToZero();
             registers.SetToZero();
 
             RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
-            textBox.SelectionStart = 2 * currentInstruction;
-            textBox.SelectionLength = 2;
+            textBox.SelectionStart = 0;
+            textBox.SelectionLength = 60;
             textBox.SelectionBackColor = Color.Transparent;
             currentInstruction = -1;
         }

@@ -18,6 +18,7 @@ namespace Assembly_Interpreter
 
         public Command(string input)
         {
+            opcode = Opcode.NONE;
             operand = new Operand();
             ParseCommand(input);
         }
@@ -28,8 +29,16 @@ namespace Assembly_Interpreter
             this.operand = operand;
         }
 
+        public bool IsNull()
+        {
+            return opcode == Opcode.NONE;
+        }
+
         public void ParseCommand(string input)
         {
+            if (input == "")
+                return;
+
             string[] parts = input.Split(' ');
 
             if (parts.Length != 2) 
