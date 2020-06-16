@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Program.cs" />
     <Compile Include="Logic\Command.cs" />
     <Compile Include="Logic\DataStorage.cs" />
     <Compile Include="Logic\Operand.cs" />

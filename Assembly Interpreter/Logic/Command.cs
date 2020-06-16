@@ -7,25 +7,32 @@ using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
-    enum Opcode
+    public enum Opcode
     {
         LDR,
+        STR,
         ADD,
         SUB
     }
 
-    class Command
+    public class Command
     {
         private Opcode opcode;
         private Operand operand;
 
-        public Opcode Opcode { get => opcode; set => opcode = value; }
+        private Opcode Opcode { get => opcode; set => opcode = value; }
         public Operand Operand { get => operand; set => operand = value; }
 
         public Command(string input)
         {
             operand = new Operand();
             ParseCommand(input);
+        }
+
+        public Command(Opcode opcode, Operand operand)
+        {
+            this.opcode = opcode;
+            this.operand = operand;
         }
 
         public void ParseCommand(string input)
@@ -44,33 +51,82 @@ namespace Assembly_Interpreter
             string returnData = opcode.ToString() + "\n";
 
             foreach (var value in operand.Values)
-                returnData += $"{value.Key}: {value.Value}\n";
+                returnData += $"{value.OperandType}: {value.Value}\n";
 
             return returnData;
         }
 
-        public void Execute(DataStorage memory, DataStorage registers)
+        private float GetData(Element element, DataStorage memory, DataStorage registers)
+        {
+            switch (element.OperandType)
+            {
+                case OperandType.Value:
+                    return element.Value;
+
+                case OperandType.Memory:
+                    return memory.GetData((int)element.Value);
+
+                case OperandType.Register:
+                    return registers.GetData((int)element.Value);
+            }
+
+            return 0f;
+        }
+
+        public void Execute(ref DataStorage memory, ref DataStorage registers)
         {
             switch (opcode)
             {
                 case Opcode.LDR:
                     //Ensure correct types for operand data
-                    if (operand.Values[0].Key != Operand_Type.Register
-                     || operand.Values[1].Key == Operand_Type.Register)
+                    if (operand.Values[0].OperandType != OperandType.Register
+                     || operand.Values[1].OperandType == OperandType.Register
+                     || operand.Values.Count != 2)
                         throw new ArgumentException();
 
-                    var operandData = operand.Values[1];
-                    float data;
-
-                    if (operandData.Key == Operand_Type.Value)
-                        //If operand second value is immediate addressing, just pass value
-                        data = operandData.Value;
-                    else
-                        //If memory address, get the value from memory
-                        data = memory.GetData((int)operandData.Value);
+                    float data = GetData(operand.Values[1], memory, registers);
 
                     registers.SetData((int)operand.Values[0].Value, data);
                     break;
+
+                case Opcode.STR:
+                    //Ensure correct types for operand data
+                    if (operand.Values[0].OperandType != OperandType.Register
+                     || operand.Values[1].OperandType != OperandType.Memory
+                     || operand.Values.Count != 2)
+                        throw new ArgumentException();
+
+                    data = GetData(operand.Values[0], memory, registers);
+
+                    memory.SetData((int)operand.Values[1].Value, data);
+                    break;
+
+                case Opcode.ADD:
+                    //Ensure correct types for operand data
+                    if (operand.Values[0].OperandType != OperandType.Register
+                     || operand.Values.Count != 3)
+                        throw new ArgumentException();
+
+                    float firstArg = GetData(operand.Values[1], memory, registers);
+                    float secondArg = GetData(operand.Values[2], memory, registers);
+                    data = firstArg + secondArg;
+
+                    registers.SetData((int)operand.Values[0].Value, data);
+                    break;
+
+                case Opcode.SUB:
+                    //Ensure correct types for operand data
+                    if (operand.Values[0].OperandType != OperandType.Register
+                     || operand.Values.Count != 3)
+                        throw new ArgumentException();
+
+                    firstArg = GetData(operand.Values[1], memory, registers);
+                    secondArg = GetData(operand.Values[2], memory, registers);
+                    data = firstArg - secondArg;
+
+                    registers.SetData((int)operand.Values[0].Value, data);
+                    break;
+
             }
         }
     }

@@ -1,24 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Assembly_Interpreter
 {
-    enum Operand_Type
+    public enum OperandType
     {
         Register,
         Memory,
         Value
     }
 
-    class Operand
+    public class Element
     {
-        private List<KeyValuePair<Operand_Type, float>> values;
+        private OperandType operandType;
+        private float value;
+        public float Value { get => value; set => this.value = value; }
+        public OperandType OperandType { get => operandType; set => operandType = value; }
 
-        internal List<KeyValuePair<Operand_Type, float>> Values { get => values; }
+        public Element(OperandType operandType, float value)
+        {
+            this.OperandType = operandType;
+            this.Value = value;
+        }
+    }
+
+    public class Operand
+    {
+        private List<Element> values;
+
+        public List<Element> Values { get => values; set => values = value; }
 
         public Operand()
         {
-            values = new List<KeyValuePair<Operand_Type, float>>();
+            values = new List<Element>();
+        }
+        public Operand(params Element[] values)
+        {
+            this.values = values.ToList();
         }
 
         public void Parse(string input)
@@ -31,15 +50,15 @@ namespace Assembly_Interpreter
                 {
                     case string register when register[0] == 'R':
                         int.TryParse(register.Remove(0, 1), out int registerNum);
-                        Values.Add(new KeyValuePair<Operand_Type, float>(Operand_Type.Register, registerNum));
+                        Values.Add(new Element(OperandType.Register, registerNum));
                         break;
                     case string value when value[0] == '#':
                         int.TryParse(value.Remove(0, 1), out int valueNum);
-                        Values.Add(new KeyValuePair<Operand_Type, float>(Operand_Type.Register, valueNum));
+                        Values.Add(new Element(OperandType.Value, valueNum));
                         break;
                     case string memory:
                         int.TryParse(memory, out int memoryRef);
-                        Values.Add(new KeyValuePair<Operand_Type, float>(Operand_Type.Memory, memoryRef));
+                        Values.Add(new Element(OperandType.Memory, memoryRef));
                         break;
                 }
             }
