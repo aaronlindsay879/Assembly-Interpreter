@@ -16,9 +16,11 @@ namespace Assembly_Interpreter
         private DataStorage registers;
         private Program program;
         private Thread runThread;
+        private int currentInstruction;
 
         public MyForm()
         {
+            currentInstruction = -1;
             memory = new DataStorage(100, true);
             registers = new DataStorage(8, true);
             InitComponents();
@@ -34,15 +36,40 @@ namespace Assembly_Interpreter
         {
             Controls["mem"].Text = "Memory:\n" + memory.CreateOutput();
             Controls["reg"].Text = "Registers:\n" + registers.CreateOutput(1);
+
+            if (currentInstruction != -1)
+            {
+                RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
+
+                if (currentInstruction != 0)
+                {
+                    textBox.SelectionStart = 2 * (currentInstruction - 1);
+                    textBox.SelectionLength = 2;
+                    textBox.SelectionBackColor = Color.Transparent;
+                }
+
+                textBox.SelectionStart = 2 * currentInstruction;
+                textBox.SelectionLength = 2;
+                textBox.SelectionBackColor = Color.Red;
+            }
         }
 
         void InitComponents()
         {
             //Create all UI elements
-            TextBox textBox = new TextBox
+            RichTextBox lineNumbers = new RichTextBox
             {
-                Size = new Size(240, 500),
+                Size = new Size(25, 500),
                 Location = new Point(5, 5),
+                Multiline = true,
+                Name = "LineNumbers",
+                ReadOnly = true
+            };
+
+            RichTextBox textBox = new RichTextBox
+            {
+                Size = new Size(215, 500),
+                Location = new Point(30, 5),
                 Multiline = true,
                 Name = "Code"
             };
@@ -101,7 +128,12 @@ namespace Assembly_Interpreter
             button.Click += new EventHandler(RunCode_Click);
             buttonTwo.Click += new EventHandler(StopCode_Click);
 
+            //Adds line numbers to textbox
+            for (int i = 0; i < 30; i++)
+                lineNumbers.Text += i.ToString().PadLeft(2, '0');
+
             //Add all elements to screen
+            Controls.Add(lineNumbers);
             Controls.Add(textBox);
             Controls.Add(button);
             Controls.Add(buttonTwo);
@@ -110,13 +142,16 @@ namespace Assembly_Interpreter
             Controls.Add(memory);
             Controls.Add(registers);
             Size = new System.Drawing.Size(1000, 600);
+
+            //Ensures correct item is selected
+            ActiveControl = textBox;
         }
 
         public void RunCode_Click(object sender, EventArgs e)
         {
             //Get the text from the textbox, and split on every newline
             string textBox = Controls["Code"].Text;
-            string[] splitText = textBox.Split(new[] { "\r\n" }, StringSplitOptions.None);
+            string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
 
             //Convert all the strings into commands
             Command[] commands = splitText.Select(x => new Command(x)).ToArray();
@@ -125,11 +160,13 @@ namespace Assembly_Interpreter
             program = new Program(commands);
             
             //Create a thread which will execute commands one by one
-            runThread = new Thread(() => program.Execute(ref memory, ref registers, delay));
+            runThread = new Thread(() => program.Execute(ref memory, ref registers, ref currentInstruction, delay));
             runThread.Start();
         }
+
         public void StopCode_Click(object sender, EventArgs e)
         {
+            currentInstruction = -1;
             runThread.Abort();
         }
 

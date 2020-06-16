@@ -16,12 +16,13 @@ namespace Assembly_Interpreter.Logic
             this.commands = commands.ToList();
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers, float delay = 1.5f)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
         {
             foreach (Command command in commands)
             {
                 Thread.Sleep((int)(delay * 1000));
                 command.Execute(ref memory, ref registers);
+                currentInstruction++;
             }
         }
     }
