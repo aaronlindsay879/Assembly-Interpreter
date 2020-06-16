@@ -16,16 +16,26 @@ namespace Assembly_Interpreter.Logic
             this.commands = commands.ToList();
         }
 
+        private bool IsJump(Opcode opcode)
+        {
+            string stringOpcode = opcode.ToString();
+            return stringOpcode[0] == 'B';
+        }
+
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
         {
-            foreach (Command command in commands)
+            Command lastCommand = commands[0];
+            while (currentInstruction < commands.Count - 1 || IsJump(lastCommand.Opcode)) 
             {
                 Thread.Sleep((int)(delay * 1000));
 
-                if (!command.IsNull())
-                    command.Execute(ref memory, ref registers);
+                if (!IsJump(lastCommand.Opcode))
+                    currentInstruction++;
 
-                currentInstruction++;
+                lastCommand = commands[currentInstruction];
+
+                if (!commands[currentInstruction].IsNull())
+                    commands[currentInstruction].Execute(ref memory, ref registers, ref currentInstruction, delay);
             }
         }
     }
