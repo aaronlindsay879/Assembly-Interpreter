@@ -1,8 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Assembly_Interpreter
 {
-    class DataStorage
+    public class DataStorage
     {
         private float[] memory;
 
@@ -31,6 +32,44 @@ namespace Assembly_Interpreter
             }
 
             return false;
+        }
+
+        public string CreateOutput(int rows = 10)
+        {
+            string output = "│";
+            int cols = (int)Math.Ceiling((float)memory.Length / rows);
+            int currentPosOne = 0;
+            int currentPosTwo = 0;
+            int currentPosThree = 0;
+
+            for (int i = 0; i < cols; i++)
+            {
+                for (int j = 0; j < rows; j++)
+                {
+                    if (currentPosOne >= memory.Length)
+                        break;
+                    output += $"  {currentPosOne++.ToString().PadLeft(2, '0')}  │";
+                }
+                output += "\n│";
+
+                for (int j = 0; j < rows; j++)
+                {
+                    if (currentPosTwo >= memory.Length)
+                        break;
+                    output += $" {memory[currentPosTwo++].ToString().PadLeft(4, '0')} │";
+                }
+                output += "\n┼";
+
+                for (int j = 0; j < rows; j++)
+                {
+                    if (currentPosThree++ >= memory.Length)
+                        break;
+                    output += "──────┼";
+                }
+                output += (currentPosThree >= memory.Length) ? "\n" : "\n│";
+            }
+
+            return output;
         }
     }
 }
