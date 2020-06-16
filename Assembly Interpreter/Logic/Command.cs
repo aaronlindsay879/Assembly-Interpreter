@@ -7,15 +7,8 @@ using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
-    public enum Opcode
-    {
-        LDR,
-        STR,
-        ADD,
-        SUB
-    }
 
-    public class Command
+    public partial class Command
     {
         private Opcode opcode;
         private Operand operand;
@@ -78,53 +71,19 @@ namespace Assembly_Interpreter
             switch (opcode)
             {
                 case Opcode.LDR:
-                    //Ensure correct types for operand data
-                    if (operand.Values[0].OperandType != OperandType.Register
-                     || operand.Values[1].OperandType == OperandType.Register
-                     || operand.Values.Count != 2)
-                        throw new ArgumentException();
-
-                    float data = GetData(operand.Values[1], memory, registers);
-
-                    registers.SetData((int)operand.Values[0].Value, data);
+                    LDR(operand, ref memory, ref registers);
                     break;
 
                 case Opcode.STR:
-                    //Ensure correct types for operand data
-                    if (operand.Values[0].OperandType != OperandType.Register
-                     || operand.Values[1].OperandType != OperandType.Memory
-                     || operand.Values.Count != 2)
-                        throw new ArgumentException();
-
-                    data = GetData(operand.Values[0], memory, registers);
-
-                    memory.SetData((int)operand.Values[1].Value, data);
+                    STR(operand, ref memory, ref registers);
                     break;
 
                 case Opcode.ADD:
-                    //Ensure correct types for operand data
-                    if (operand.Values[0].OperandType != OperandType.Register
-                     || operand.Values.Count != 3)
-                        throw new ArgumentException();
-
-                    float firstArg = GetData(operand.Values[1], memory, registers);
-                    float secondArg = GetData(operand.Values[2], memory, registers);
-                    data = firstArg + secondArg;
-
-                    registers.SetData((int)operand.Values[0].Value, data);
+                    ADD(operand, ref memory, ref registers);
                     break;
 
                 case Opcode.SUB:
-                    //Ensure correct types for operand data
-                    if (operand.Values[0].OperandType != OperandType.Register
-                     || operand.Values.Count != 3)
-                        throw new ArgumentException();
-
-                    firstArg = GetData(operand.Values[1], memory, registers);
-                    secondArg = GetData(operand.Values[2], memory, registers);
-                    data = firstArg - secondArg;
-
-                    registers.SetData((int)operand.Values[0].Value, data);
+                    SUB(operand, ref memory, ref registers);
                     break;
 
             }
