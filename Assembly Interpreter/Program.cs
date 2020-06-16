@@ -6,17 +6,31 @@ using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
-    static class Program
+    class MyForm : Form
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        public MyForm()
+        {
+            InitComponents();
+        }
+
+        void InitComponents()
+        {
+            Label label = new Label
+            {
+                AutoSize = true,
+                Text = new Command("LDR R1,300").ToString()
+            };
+
+            Controls.Add(label);
+        }
+
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Application.Run(new MyForm());
         }
     }
 }
