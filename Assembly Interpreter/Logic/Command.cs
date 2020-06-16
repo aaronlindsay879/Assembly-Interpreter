@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
@@ -11,12 +12,6 @@ namespace Assembly_Interpreter
         LDR,
         ADD,
         SUB
-    }
-
-    enum Addressing_Mode
-    {
-        Immediate,
-        Direct
     }
 
     class Command
@@ -52,6 +47,31 @@ namespace Assembly_Interpreter
                 returnData += $"{value.Key}: {value.Value}\n";
 
             return returnData;
+        }
+
+        public void Execute(DataStorage memory, DataStorage registers)
+        {
+            switch (opcode)
+            {
+                case Opcode.LDR:
+                    //Ensure correct types for operand data
+                    if (operand.Values[0].Key != Operand_Type.Register
+                     || operand.Values[1].Key == Operand_Type.Register)
+                        throw new ArgumentException();
+
+                    var operandData = operand.Values[1];
+                    float data;
+
+                    if (operandData.Key == Operand_Type.Value)
+                        //If operand second value is immediate addressing, just pass value
+                        data = operandData.Value;
+                    else
+                        //If memory address, get the value from memory
+                        data = memory.GetData((int)operandData.Value);
+
+                    registers.SetData((int)operand.Values[0].Value, data);
+                    break;
+            }
         }
     }
 }

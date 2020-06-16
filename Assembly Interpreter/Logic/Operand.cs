@@ -14,7 +14,7 @@ namespace Assembly_Interpreter
     {
         private List<KeyValuePair<Operand_Type, float>> values;
 
-        internal List<KeyValuePair<Operand_Type, float>> Values { get => values; set => values = value; }
+        internal List<KeyValuePair<Operand_Type, float>> Values { get => values; }
 
         public Operand()
         {

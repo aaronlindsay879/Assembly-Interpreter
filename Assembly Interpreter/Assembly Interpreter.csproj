@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Command.cs" />
-    <Compile Include="Logic\Memory.cs" />
+    <Compile Include="Logic\DataStorage.cs" />
     <Compile Include="Logic\Operand.cs" />
     <Compile Include="Program.cs">
       <SubType>Form</SubType>
