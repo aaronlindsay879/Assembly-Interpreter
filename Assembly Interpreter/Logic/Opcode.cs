@@ -14,6 +14,10 @@
         BGT,
         BLT,
         BGE,
-        BLE
+        BLE,
+        AND,
+        EOR,
+        MVN,
+        ORR
     }
 }

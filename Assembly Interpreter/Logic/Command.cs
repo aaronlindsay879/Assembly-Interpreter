@@ -96,6 +96,7 @@ namespace Assembly_Interpreter
             map[Opcode.ADD] = ADD;
             map[Opcode.SUB] = SUB;
             map[Opcode.MOV] = MOV;
+
             map[Opcode.B] = B;
             map[Opcode.BEQ] = BEQ;
             map[Opcode.BEQ] = BNE;
@@ -103,6 +104,11 @@ namespace Assembly_Interpreter
             map[Opcode.BGE] = BGE;
             map[Opcode.BLT] = BLT;
             map[Opcode.BLE] = BLE;
+
+            map[Opcode.AND] = AND;
+            map[Opcode.EOR] = EOR;
+            map[Opcode.MVN] = MVN;
+            map[Opcode.ORR] = ORR;
 
             //Run current instruction with all arguments given
             map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction);
