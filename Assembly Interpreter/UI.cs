@@ -67,26 +67,29 @@ namespace Assembly_Interpreter
             //Create all UI elements
             RichTextBox lineNumbers = new RichTextBox
             {
-                Size = new Size(25, 500),
-                Location = new Point(5, 5),
+                Size = new Size(20, 480),
+                Location = new Point(10, 5),
                 Multiline = true,
                 Name = "LineNumbers",
-                ReadOnly = true
+                ReadOnly = true,
+                BorderStyle = BorderStyle.None,
+                BackColor = Color.White
             };
 
             RichTextBox textBox = new RichTextBox
             {
-                Size = new Size(215, 500),
+                Size = new Size(215, 480),
                 Location = new Point(30, 5),
                 Multiline = true,
                 Name = "Code",
-                Text = "LDR R0,#10\nLDR R1,#2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
+                BorderStyle = BorderStyle.None,
+                Text = "LDR R0,#10; R0=10\nLDR R1,#2; R1=2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
             };
 
             Button button = new Button
             {
                 Size = new Size(90, 30),
-                Location = new Point(5, 505),
+                Location = new Point(5, 485),
                 Text = "Run code",
                 Name = "RunCode"
             };
@@ -94,7 +97,7 @@ namespace Assembly_Interpreter
             Button buttonTwo = new Button
             {
                 Size = new Size(90, 30),
-                Location = new Point(95, 505),
+                Location = new Point(95, 485),
                 Text = "Stop code",
                 Name = "StopCode"
             };
@@ -110,14 +113,14 @@ namespace Assembly_Interpreter
             Label delayLabel = new Label
             {
                 Size = new Size(50, 20),
-                Location = new Point(195, 505),
+                Location = new Point(195, 485),
                 Text = "Delay (s)"
             };
 
             NumericUpDown delay = new NumericUpDown
             {
                 Size = new Size(50, 20),
-                Location = new Point(195, 525),
+                Location = new Point(195, 505),
                 Increment = 0.1M,
                 DecimalPlaces = 1,
                 Value = 0.5M,
@@ -127,7 +130,7 @@ namespace Assembly_Interpreter
             Button openFile = new Button
             {
                 Size = new Size(90, 30),
-                Location = new Point(5, 540),
+                Location = new Point(5, 520),
                 Text = "Open file",
                 Name = "openFile"
             };
@@ -135,7 +138,7 @@ namespace Assembly_Interpreter
             Button saveFile = new Button
             {
                 Size = new Size(90, 30),
-                Location = new Point(95, 540),
+                Location = new Point(95, 520),
                 Text = "Save",
                 Name = "save"
             };
@@ -186,7 +189,7 @@ namespace Assembly_Interpreter
 
             //General window setup
             ActiveControl = textBox;
-            Size = new System.Drawing.Size(1000, 620);
+            Size = new System.Drawing.Size(1000, 600);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Text = "Assembly Interpreter";
         }
@@ -294,19 +297,25 @@ namespace Assembly_Interpreter
             string[] opcodes = Enum.GetNames(typeof(Opcode));
             //Generates query containing all opcodes from enum
             string query = opcodes.Aggregate((a, b) => a + "|" + b)
+                //Adds regex for comments
+                + "|(\\;)(?:.*)"
                 //Adds regex for operands
                 + "|R\\d|#\\d{1,3}|\\d{1,3}";
             MatchCollection matches = Regex.Matches(textBox.Text, query);
 
-            //For each match, identify the type of match (opcode, register, etc.) and colour it accordingly
+            //For each match, identify the type of match (operand, comment) and colour it accordingly
             foreach (Match match in matches)
             {
                 textBox.Select(match.Index, match.Length);
-                if (match.Value[0] == 'R' && Char.IsDigit(match.Value[1]))
+                if (match.Value[0] == ';')
+                    textBox.SelectionColor = Color.Blue;
+                else if (match.Value[0] == 'R' && Char.IsDigit(match.Value[1]))
                     textBox.SelectionColor = Color.FromArgb(0x56a79e);
                 else if (match.Value[0] == '#' && Char.IsDigit(match.Value[1]))
                     textBox.SelectionColor = Color.FromArgb(0x647a7f);
                 else if (int.TryParse(match.Value, out int output))
+                    textBox.SelectionColor = Color.FromArgb(0xcb5b3e);
+                else if (int.TryParse(match.Value, out output))
                     textBox.SelectionColor = Color.FromArgb(0xcb5b3e);
                 else
                     textBox.SelectionColor = Color.FromArgb(0x288cd2);
