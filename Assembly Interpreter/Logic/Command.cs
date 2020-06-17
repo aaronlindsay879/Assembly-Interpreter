@@ -103,6 +103,10 @@ namespace Assembly_Interpreter
                     SUB(operand, ref memory, ref registers);
                     break;
 
+                case Opcode.MOV:
+                    MOV(operand, ref memory, ref registers);
+                    break;
+
                 case Opcode.B:
                     B(operand, ref memory, ref registers, ref currentInstruction, delay);
                     break;

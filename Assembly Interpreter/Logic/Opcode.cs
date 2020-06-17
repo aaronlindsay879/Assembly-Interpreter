@@ -7,6 +7,7 @@
         STR,
         ADD,
         SUB,
+        MOV,
         B,
         BEQ
     }

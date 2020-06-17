@@ -49,6 +49,7 @@
     <Compile Include="Logic\Commands\BEQ.cs" />
     <Compile Include="Logic\Commands\B.cs" />
     <Compile Include="Logic\Commands\ADD.cs" />
+    <Compile Include="Logic\Commands\MOV.cs" />
     <Compile Include="Logic\Commands\SUB.cs" />
     <Compile Include="Logic\Commands\STR.cs" />
     <Compile Include="Logic\Element.cs" />
