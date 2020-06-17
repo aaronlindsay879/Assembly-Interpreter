@@ -10,7 +10,7 @@ namespace Assembly_Interpreter
         {
             //Kill thread that threw error
             runThread.Abort();
-            Controls["RunCode"].Enabled = false;
+            Controls["RunCode"].Enabled = true;
 
             MessageBox.Show(err.Message, "Warning",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
