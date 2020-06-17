@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assembly_Interpreter
 {
@@ -55,7 +51,7 @@ namespace Assembly_Interpreter
             if (inclusive)
                 if (value < lowerRange || value > upperRange)
                     throw new ArgumentException($"The operand must be in the range {lowerRange}<x<{upperRange}, but is {value}");
-            else if (value <= lowerRange || value >= upperRange)
+                else if (value <= lowerRange || value >= upperRange)
                     throw new ArgumentException($"The operand must be in the range {lowerRange}<=x<={upperRange}, but is {value}");
         }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Assembly_Interpreter
@@ -24,7 +23,7 @@ namespace Assembly_Interpreter
         {
             string[] parts = input.Split(',');
 
-            foreach(string data in parts)
+            foreach (string data in parts)
             {
                 switch (data)
                 {

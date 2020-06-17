@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
@@ -88,7 +84,7 @@ namespace Assembly_Interpreter
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Create dictionary to map opcodes to functions
-            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>> map = 
+            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>> map =
                 new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>>();
 
             //Add all opcodes and functions to dictionary

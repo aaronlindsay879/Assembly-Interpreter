@@ -1,13 +1,7 @@
-﻿using Assembly_Interpreter;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assembly_Interpreter
@@ -32,7 +26,8 @@ namespace Assembly_Interpreter
             program = new Program(commands);
 
             //Create a thread which will execute commands one by one
-            runThread = new Thread(() => {
+            runThread = new Thread(() =>
+            {
                 try
                 {
                     program.Execute(ref memory, ref registers, ref currentInstruction, delay);
