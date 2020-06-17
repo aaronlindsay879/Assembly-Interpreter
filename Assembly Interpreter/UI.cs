@@ -258,11 +258,18 @@ namespace Assembly_Interpreter
             timer.Interval = (int)(delay / 2 * 1000);
         }
 
+        private static void EventHandler(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Error",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += new ThreadExceptionEventHandler(EventHandler);
 
             Application.Run(new MyForm());
         }

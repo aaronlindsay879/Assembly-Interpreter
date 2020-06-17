@@ -47,8 +47,8 @@ namespace Assembly_Interpreter
             string[] parts = input.Split(' ');
 
             //Check the input is right format
-            if (parts.Length != 2 && parts[0] != "HALT") 
-                throw new ArgumentException();
+            if (parts.Length != 2 && parts[0] != "HALT")
+                throw new ArgumentException($"Command ({input}) did not have 2 parts");
 
             //Parse part-by-part
             opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
