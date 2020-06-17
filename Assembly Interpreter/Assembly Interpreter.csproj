@@ -73,10 +73,25 @@
     <Compile Include="Logic\Command.cs" />
     <Compile Include="Logic\DataStorage.cs" />
     <Compile Include="Logic\Operand.cs" />
-    <Compile Include="UI.cs">
+    <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\EventHandling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ComponentUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Components.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\SyntaxHighlighting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ErrorHandling.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
