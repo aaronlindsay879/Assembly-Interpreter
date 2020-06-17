@@ -118,6 +118,22 @@ namespace Assembly_Interpreter
                 case Opcode.BNE:
                     BNE(operand, ref memory, ref registers, ref currentInstruction);
                     break;
+
+                case Opcode.BGT:
+                    BGT(operand, ref memory, ref registers, ref currentInstruction);
+                    break;
+
+                case Opcode.BLT:
+                    BLT(operand, ref memory, ref registers, ref currentInstruction);
+                    break;
+
+                case Opcode.BGE:
+                    BGE(operand, ref memory, ref registers, ref currentInstruction);
+                    break;
+
+                case Opcode.BLE:
+                    BLE(operand, ref memory, ref registers, ref currentInstruction);
+                    break;
             }
         }
     }

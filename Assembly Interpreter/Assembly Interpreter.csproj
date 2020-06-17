@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Commands\Branch\BGE.cs" />
+    <Compile Include="Logic\Commands\Branch\BGT.cs" />
+    <Compile Include="Logic\Commands\Branch\BLE.cs" />
+    <Compile Include="Logic\Commands\Branch\BLT.cs" />
     <Compile Include="Logic\Commands\Branch\BNE.cs" />
     <Compile Include="Logic\Commands\Branch\BEQ.cs" />
     <Compile Include="Logic\Commands\Branch\B.cs" />

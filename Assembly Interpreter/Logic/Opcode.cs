@@ -10,6 +10,10 @@
         MOV,
         B,
         BEQ,
-        BNE
+        BNE,
+        BGT,
+        BLT,
+        BGE,
+        BLE
     }
 }

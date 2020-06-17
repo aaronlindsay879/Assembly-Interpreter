@@ -9,7 +9,7 @@ namespace Assembly_Interpreter
 {
     public partial class Command
     {
-        public void BEQ(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
+        public void BGE(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
             if (operand.Values[2].OperandType != OperandType.Value
@@ -17,8 +17,8 @@ namespace Assembly_Interpreter
              || operand.Values.Count != 3)
                 throw new ArgumentException();
 
-            //If the values are equal, branch
-            if (GetData(operand.Values[0], memory, registers) == GetData(operand.Values[1], memory, registers))
+            //If register 1 is greater than or equal to register 2, branch
+            if (GetData(operand.Values[0], memory, registers) >= GetData(operand.Values[1], memory, registers))
                 currentInstruction = (int)operand.Values[2].Value;
         }
     }
