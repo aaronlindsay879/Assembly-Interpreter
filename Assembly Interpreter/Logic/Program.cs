@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Assembly_Interpreter.Logic
+namespace Assembly_Interpreter
 {
-    class Program
+    public class Program
     {
         private List<Command> commands;
 
