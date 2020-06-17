@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace Assembly_Interpreter
             memory = new DataStorage(100, true);
             registers = new DataStorage(8, true);
             InitComponents();
+            SyntaxHighlighting("code");
 
             //Create timer to update screen every 0.1 seconds
             timer = new System.Windows.Forms.Timer();
@@ -42,7 +44,7 @@ namespace Assembly_Interpreter
             {
                 RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
 
-                ClearAllHighlighting();
+                ClearAllHighlighting("LineNumbers");
 
                 textBox.SelectionStart = 2 * currentInstruction;
                 textBox.SelectionLength = 2;
@@ -50,9 +52,9 @@ namespace Assembly_Interpreter
             }
         }
 
-        public void ClearAllHighlighting()
+        public void ClearAllHighlighting(string textbox)
         {
-            RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
+            RichTextBox textBox = (RichTextBox)Controls[textbox];
             
             textBox.SelectionStart = 0;
             textBox.SelectionLength = 60;
@@ -143,6 +145,7 @@ namespace Assembly_Interpreter
             button.Click += new EventHandler(RunCode_Click);
             buttonTwo.Click += new EventHandler(StopCode_Click);
             buttonThree.Click += new EventHandler(Reset_Click);
+            textBox.KeyDown += new KeyEventHandler(Code_KeyPress);
             delay.ValueChanged += new EventHandler(Delay_Changed);
 
             //Adds line numbers to textbox
@@ -193,7 +196,7 @@ namespace Assembly_Interpreter
                     runThread.Abort();
 
             currentInstruction = -1;
-            ClearAllHighlighting();
+            ClearAllHighlighting("LineNumbers");
         }
 
         public void Reset_Click(object sender, EventArgs e)
@@ -202,9 +205,48 @@ namespace Assembly_Interpreter
             memory.SetToZero();
             registers.SetToZero();
 
-            ClearAllHighlighting();
+            ClearAllHighlighting("LineNumbers");
             currentInstruction = -1;
         }
+
+        public void Code_KeyPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                SyntaxHighlighting("Code");
+        }
+
+        private void SyntaxHighlighting(string textBoxStr)
+        {
+            RichTextBox textBox = (RichTextBox)Controls[textBoxStr];
+
+            //Save current position and clear all highlighting
+            int currentSelection = textBox.SelectionStart;
+            textBox.SelectAll();
+            textBox.SelectionColor = Color.Black;
+
+            string[] opcodes = Enum.GetNames(typeof(Opcode));
+            string query = opcodes.Aggregate((a, b) => a + "|" + b) + "|R\\d|#\\d{1,3}|\\d{1,3}";
+            MatchCollection matches = Regex.Matches(textBox.Text, query);
+
+            foreach (Match match in matches)
+            {
+                textBox.Select(match.Index, match.Length);
+                if (match.Value[0] == 'R' && Char.IsDigit(match.Value[1]))
+                    textBox.SelectionColor = Color.FromArgb(0x56a79e);
+                else if (match.Value[0] == '#' && Char.IsDigit(match.Value[1]))
+                    textBox.SelectionColor = Color.FromArgb(0x647a7f);
+                else if (int.TryParse(match.Value, out int output))
+                    textBox.SelectionColor = Color.FromArgb(0xcb5b3e);
+                else
+                    textBox.SelectionColor = Color.FromArgb(0x288cd2);
+            }
+
+            //Revert to old position
+            textBox.SelectionStart = currentSelection;
+            textBox.SelectionLength = 0;
+            textBox.SelectionColor = Color.Black;
+        }
+
         public void Delay_Changed(object sender, EventArgs e)
         {
             float.TryParse(Controls["delay"].Text, out float delay);
