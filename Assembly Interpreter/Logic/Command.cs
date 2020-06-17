@@ -82,7 +82,7 @@ namespace Assembly_Interpreter
             return 0f;
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Run relevant code for each opcode
             switch (opcode)
@@ -108,11 +108,15 @@ namespace Assembly_Interpreter
                     break;
 
                 case Opcode.B:
-                    B(operand, ref memory, ref registers, ref currentInstruction, delay);
+                    B(operand, ref memory, ref registers, ref currentInstruction);
                     break;
 
                 case Opcode.BEQ:
-                    BEQ(operand, ref memory, ref registers, ref currentInstruction, delay);
+                    BEQ(operand, ref memory, ref registers, ref currentInstruction);
+                    break;
+
+                case Opcode.BNE:
+                    BNE(operand, ref memory, ref registers, ref currentInstruction);
                     break;
             }
         }

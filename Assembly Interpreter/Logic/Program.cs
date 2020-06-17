@@ -35,7 +35,7 @@ namespace Assembly_Interpreter.Logic
 
                 //If there is a command, execute it
                 if (!CIR.IsNull())
-                    CIR.Execute(ref memory, ref registers, ref currentInstruction, delay);
+                    CIR.Execute(ref memory, ref registers, ref currentInstruction);
             }
         }
     }

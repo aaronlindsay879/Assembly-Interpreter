@@ -9,6 +9,7 @@
         SUB,
         MOV,
         B,
-        BEQ
+        BEQ,
+        BNE
     }
 }
