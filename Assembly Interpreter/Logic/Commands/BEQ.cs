@@ -19,9 +19,7 @@ namespace Assembly_Interpreter
 
             //If the values are equal, branch - otherwise just increment currentInstruction like usual (this is due to change)
             if (GetData(operand.Values[0], memory, registers) == GetData(operand.Values[1], memory, registers))
-                currentInstruction = (int)operand.Values[0].Value;
-            else
-                currentInstruction++;
+                currentInstruction = (int)operand.Values[2].Value;
         }
     }
 }

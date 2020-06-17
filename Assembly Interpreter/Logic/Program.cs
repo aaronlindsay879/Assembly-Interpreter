@@ -24,18 +24,18 @@ namespace Assembly_Interpreter.Logic
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
         {
-            Command lastCommand = commands[0];
-            while (currentInstruction < commands.Count - 1 || IsJump(lastCommand.Opcode)) 
+            while (currentInstruction < commands.Count)
             {
+                //Sleep for the specified delay so the user can see it executing
                 Thread.Sleep((int)(delay * 1000));
 
-                if (!IsJump(lastCommand.Opcode))
-                    currentInstruction++;
+                //Fetch current instruction and then increment currentInstruction
+                Command CIR = commands[currentInstruction];
+                currentInstruction++;
 
-                lastCommand = commands[currentInstruction];
-
-                if (!commands[currentInstruction].IsNull())
-                    commands[currentInstruction].Execute(ref memory, ref registers, ref currentInstruction, delay);
+                //If there is a command, execute it
+                if (!CIR.IsNull())
+                    CIR.Execute(ref memory, ref registers, ref currentInstruction, delay);
             }
         }
     }
