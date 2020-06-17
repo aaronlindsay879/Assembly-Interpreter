@@ -11,9 +11,9 @@ namespace Assembly_Interpreter
         public void AND(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
+            ErrorManager.OperandCountMustBe(operand, 3);
             ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
             ErrorManager.OperandMustBe(operand, 1, OperandType.Register);
-            ErrorManager.OperandCountMustBe(operand, 3);
 
             //Fetch data and use bitwise and on casted data
             float firstArg = GetData(operand.Values[1], memory, registers);

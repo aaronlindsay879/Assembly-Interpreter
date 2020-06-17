@@ -174,6 +174,9 @@ namespace Assembly_Interpreter
         {
             currentInstruction = 0;
 
+            //Clear any potential old hightligting on LineNumbers (ie from error)
+            ClearAllHighlighting("LineNumbers");
+
             //Get the text from the textbox, and split on every newline
             string textBox = Controls["Code"].Text.Trim();
             string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
@@ -203,7 +206,7 @@ namespace Assembly_Interpreter
         {
             //Kill thread that threw error
             runThread.Abort();
-
+            
             MessageBox.Show(err.Message, "Warning",
                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }

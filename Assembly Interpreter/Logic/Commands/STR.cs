@@ -11,9 +11,9 @@ namespace Assembly_Interpreter
         public void STR(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
+            ErrorManager.OperandCountMustBe(operand, 2);
             ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
             ErrorManager.OperandMustBe(operand, 1, OperandType.Value);
-            ErrorManager.OperandCountMustBe(operand, 2);
 
             //Fetch data
             float data = GetData(operand.Values[0], memory, registers);

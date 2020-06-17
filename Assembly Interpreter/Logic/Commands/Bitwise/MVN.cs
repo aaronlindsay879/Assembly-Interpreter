@@ -11,8 +11,8 @@ namespace Assembly_Interpreter
         public void MVN(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
             ErrorManager.OperandCountMustBe(operand, 2);
+            ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
 
             //Fetch data and use bitwise not on casted data
             float firstArg = GetData(operand.Values[1], memory, registers);
