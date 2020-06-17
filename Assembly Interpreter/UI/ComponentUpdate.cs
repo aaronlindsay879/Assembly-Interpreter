@@ -28,7 +28,7 @@ namespace Assembly_Interpreter
             RichTextBox textBox = (RichTextBox)Controls[textbox];
 
             textBox.SelectionStart = 0;
-            textBox.SelectionLength = 60;
+            textBox.SelectionLength = 90;
             textBox.SelectionBackColor = textBox.BackColor;
         }
     }

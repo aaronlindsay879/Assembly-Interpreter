@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -14,6 +15,7 @@ namespace Assembly_Interpreter
 
             //Clear any potential old hightligting on LineNumbers (ie from error)
             ClearAllHighlighting("LineNumbers");
+            SyntaxHighlighting("Code");
 
             //Get the text from the textbox, and split on every newline
             string textBox = Controls["Code"].Text.Trim();
@@ -42,6 +44,7 @@ namespace Assembly_Interpreter
             runThread.Start();
 
             Controls["RunCode"].Enabled = false;
+            ((RichTextBox)Controls["Code"]).ReadOnly = true;
         }
 
         public void StopCode_Click(object sender, EventArgs e)
@@ -53,6 +56,7 @@ namespace Assembly_Interpreter
             currentInstruction = -1;
             ClearAllHighlighting("LineNumbers");
             Controls["RunCode"].Enabled = true;
+            ((RichTextBox)Controls["Code"]).ReadOnly = false;
         }
 
         public void Reset_Click(object sender, EventArgs e)
