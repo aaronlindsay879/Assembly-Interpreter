@@ -184,6 +184,7 @@ namespace Assembly_Interpreter
         public void StopCode_Click(object sender, EventArgs e)
         {
             runThread.Abort();
+            currentInstruction = -1;
         }
 
         public void Reset_Click(object sender, EventArgs e)
@@ -193,7 +194,7 @@ namespace Assembly_Interpreter
             registers.SetToZero();
 
             ClearAllHighlighting();
-            currentInstruction = 0;
+            currentInstruction = -1;
         }
 
         [STAThread]
