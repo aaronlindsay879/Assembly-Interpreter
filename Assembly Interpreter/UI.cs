@@ -73,7 +73,9 @@ namespace Assembly_Interpreter
                 Name = "LineNumbers",
                 ReadOnly = true,
                 BorderStyle = BorderStyle.None,
-                BackColor = Color.White
+                BackColor = Color.White,
+                SelectionProtected = true,
+                Enabled = false
             };
 
             RichTextBox textBox = new RichTextBox
@@ -84,6 +86,13 @@ namespace Assembly_Interpreter
                 Name = "Code",
                 BorderStyle = BorderStyle.None,
                 Text = "LDR R0,#10; R0=10\nLDR R1,#2; R1=2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
+            };
+
+            Label label = new Label
+            {
+                Size = new Size(100, 480),
+                Location = new Point(25, 5),
+                BackColor = Color.White
             };
 
             Button button = new Button
@@ -175,8 +184,9 @@ namespace Assembly_Interpreter
                 lineNumbers.Text += i.ToString().PadLeft(2, '0');
 
             //Add all elements to screen
-            Controls.Add(lineNumbers);
             Controls.Add(textBox);
+            Controls.Add(label);
+            Controls.Add(lineNumbers);
             Controls.Add(button);
             Controls.Add(buttonTwo);
             Controls.Add(buttonThree);
