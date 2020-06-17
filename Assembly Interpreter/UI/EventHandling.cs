@@ -31,6 +31,7 @@ namespace Assembly_Interpreter
                 try
                 {
                     program.Execute(ref memory, ref registers, ref currentInstruction, delay);
+                    Controls["RunCode"].Enabled = true;
                 }
                 catch (ArgumentException err)
                 {
@@ -39,6 +40,8 @@ namespace Assembly_Interpreter
                 }
             });
             runThread.Start();
+
+            Controls["RunCode"].Enabled = false;
         }
 
         public void StopCode_Click(object sender, EventArgs e)
@@ -49,6 +52,7 @@ namespace Assembly_Interpreter
 
             currentInstruction = -1;
             ClearAllHighlighting("LineNumbers");
+            Controls["RunCode"].Enabled = true;
         }
 
         public void Reset_Click(object sender, EventArgs e)
@@ -76,7 +80,7 @@ namespace Assembly_Interpreter
 
         public void SaveFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
+            SaveFileDialog fileDialog = new SaveFileDialog();
             fileDialog.DefaultExt = "*.txt";
             fileDialog.Filter = "TXT Files|*.txt";
             fileDialog.RestoreDirectory = true;

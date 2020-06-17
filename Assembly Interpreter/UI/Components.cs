@@ -9,19 +9,6 @@ namespace Assembly_Interpreter
         void InitComponents()
         {
             //Create all UI elements
-            RichTextBox lineNumbers = new RichTextBox
-            {
-                Size = new Size(20, 480),
-                Location = new Point(10, 5),
-                Multiline = true,
-                Name = "LineNumbers",
-                ReadOnly = true,
-                BorderStyle = BorderStyle.None,
-                BackColor = Color.White,
-                SelectionProtected = true,
-                Enabled = false
-            };
-
             RichTextBox textBox = new RichTextBox
             {
                 Size = new Size(215, 480),
@@ -32,11 +19,24 @@ namespace Assembly_Interpreter
                 Text = "LDR R0,#10; R0=10\nLDR R1,#2; R1=2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
             };
 
+            RichTextBox lineNumbers = new RichTextBox
+            {
+                Size = new Size(20, 480),
+                Location = new Point(10, 5),
+                Multiline = true,
+                Name = "LineNumbers",
+                ReadOnly = true,
+                BorderStyle = BorderStyle.None,
+                BackColor = textBox.BackColor,
+                SelectionProtected = true,
+                Enabled = false
+            };
+
             Label label = new Label
             {
                 Size = new Size(100, 480),
                 Location = new Point(25, 5),
-                BackColor = Color.White
+                BackColor = textBox.BackColor
             };
 
             Button button = new Button
@@ -125,7 +125,7 @@ namespace Assembly_Interpreter
 
             //Adds line numbers to textbox
             for (int i = 0; i < 30; i++)
-                lineNumbers.Text += i.ToString().PadLeft(2, '0');
+                lineNumbers.Text += i.ToString().PadLeft(2, '0') + "\n";
 
             //Add all elements to screen
             Controls.Add(textBox);

@@ -17,8 +17,8 @@ namespace Assembly_Interpreter
 
                 ClearAllHighlighting("LineNumbers");
 
-                textBox.SelectionStart = 2 * currentInstruction;
-                textBox.SelectionLength = 2;
+                textBox.SelectionStart = 3 * currentInstruction;
+                textBox.SelectionLength = 3;
                 textBox.SelectionBackColor = Color.Red;
             }
         }
@@ -29,7 +29,7 @@ namespace Assembly_Interpreter
 
             textBox.SelectionStart = 0;
             textBox.SelectionLength = 60;
-            textBox.SelectionBackColor = Color.Transparent;
+            textBox.SelectionBackColor = textBox.BackColor;
         }
     }
 }
