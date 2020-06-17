@@ -45,11 +45,20 @@ namespace Assembly_Interpreter
         public string CreateOutput(int rows = 10)
         {
             //This is a mess, will fix later on
-            string output = "│";
+            string output = "┌";
             int cols = (int)Math.Ceiling((float)memory.Length / rows);
             int currentPosOne = 0;
             int currentPosTwo = 0;
             int currentPosThree = 0;
+
+            for (int j = 0; j < rows; j++)
+            {
+                if (currentPosOne >= memory.Length)
+                    break;
+                output += "──────";
+                output += j == rows - 1 ? "┐" : "┬";
+            }
+            output += "\n│";
 
             for (int i = 0; i < cols; i++)
             {
@@ -67,13 +76,14 @@ namespace Assembly_Interpreter
                         break;
                     output += $" {memory[currentPosTwo++].ToString().PadLeft(4, '0')} │";
                 }
-                output += "\n┼";
+                output += i == cols - 1 ? "\n└" : "\n├";
 
                 for (int j = 0; j < rows; j++)
                 {
                     if (currentPosThree++ >= memory.Length)
                         break;
-                    output += "──────┼";
+                    output += "──────";
+                    output += j == rows - 1 ? (i == cols - 1 ? "┘" : "┤") : (i == cols - 1 ? "┴" : "┼");
                 }
                 output += (currentPosThree >= memory.Length) ? "\n" : "\n│";
             }
