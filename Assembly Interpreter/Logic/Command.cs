@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 namespace Assembly_Interpreter
 {
+    //Custom action type for opcode functions
+    delegate void OpcodeAction<T1, T2, T3, T4>(T1 operand, ref T2 mem, ref T3 reg, ref T4 cInstruct);
 
     public partial class Command
     {
@@ -84,57 +86,26 @@ namespace Assembly_Interpreter
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
-            //Run relevant code for each opcode
-            switch (opcode)
-            {
-                case Opcode.LDR:
-                    LDR(operand, ref memory, ref registers);
-                    break;
+            //Create dictionary to map opcodes to functions
+            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>> map = 
+                new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>>();
 
-                case Opcode.STR:
-                    STR(operand, ref memory, ref registers);
-                    break;
+            //Add all opcodes and functions to dictionary
+            map[Opcode.LDR] = LDR;
+            map[Opcode.STR] = STR;
+            map[Opcode.ADD] = ADD;
+            map[Opcode.SUB] = SUB;
+            map[Opcode.MOV] = MOV;
+            map[Opcode.B] = B;
+            map[Opcode.BEQ] = BEQ;
+            map[Opcode.BEQ] = BNE;
+            map[Opcode.BGT] = BGT;
+            map[Opcode.BGE] = BGE;
+            map[Opcode.BLT] = BLT;
+            map[Opcode.BLE] = BLE;
 
-                case Opcode.ADD:
-                    ADD(operand, ref memory, ref registers);
-                    break;
-
-                case Opcode.SUB:
-                    SUB(operand, ref memory, ref registers);
-                    break;
-
-                case Opcode.MOV:
-                    MOV(operand, ref memory, ref registers);
-                    break;
-
-                case Opcode.B:
-                    B(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BEQ:
-                    BEQ(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BNE:
-                    BNE(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BGT:
-                    BGT(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BLT:
-                    BLT(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BGE:
-                    BGE(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-
-                case Opcode.BLE:
-                    BLE(operand, ref memory, ref registers, ref currentInstruction);
-                    break;
-            }
+            //Run current instruction with all arguments given
+            map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction);
         }
     }
 }

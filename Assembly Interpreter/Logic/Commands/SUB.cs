@@ -8,7 +8,7 @@ namespace Assembly_Interpreter
 {
     public partial class Command
     {
-        public void SUB(Operand operand, ref DataStorage memory, ref DataStorage registers)
+        public void SUB(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
             if (operand.Values[0].OperandType != OperandType.Register
