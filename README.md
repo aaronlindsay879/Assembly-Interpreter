@@ -5,7 +5,7 @@ This is a simple project which emulates a processor with a defineable amount of 
     * LDR R*d*,[operand] - Loads the value in [operand] into register _d_
     * STR R*d*,[memory ref] - Stores the value in register _d_ into [memory ref]
     * ADD R*d*,R*n*,[operand] - Adds the value in R*n* to [operand] and stores the result in register _d_
-    * ADD R*d*,R*n*,[operand] - Subtracts the value in R*n* from [operand] and stores the result in register _d_
+    * SUB R*d*,R*n*,[operand] - Subtracts the value in R*n* from [operand] and stores the result in register _d_
     * MOV R*d*,R*n* - Copies the value in R*n* into register _d_
     * HALT - Stops execution of the program
 * Branch instructions
