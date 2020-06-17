@@ -1,4 +1,4 @@
-﻿using Assembly_Interpreter.Logic;
+﻿using Assembly_Interpreter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -79,7 +79,7 @@ namespace Assembly_Interpreter
                 Location = new Point(30, 5),
                 Multiline = true,
                 Name = "Code",
-                Text = "LDR R0,#10\nLDR R1,#2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
+                Text = "LDR R0,#10\nLDR R1,#2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
             };
 
             Button button = new Button

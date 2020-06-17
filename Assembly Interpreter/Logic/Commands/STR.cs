@@ -12,7 +12,7 @@ namespace Assembly_Interpreter
         {
             //Ensure correct types for operand data
             if (operand.Values[0].OperandType != OperandType.Register
-             || operand.Values[1].OperandType != OperandType.Value
+             || operand.Values[1].OperandType != OperandType.Memory
              || operand.Values.Count != 2)
                 throw new ArgumentException();
 
