@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -84,25 +85,25 @@ namespace Assembly_Interpreter
 
             Button button = new Button
             {
-                Size = new Size(60, 50),
+                Size = new Size(90, 30),
                 Location = new Point(5, 505),
-                Text = "Run\r\n code",
+                Text = "Run code",
                 Name = "RunCode"
             };
 
             Button buttonTwo = new Button
             {
-                Size = new Size(60, 50),
-                Location = new Point(65, 505),
-                Text = "Stop\r\n code",
+                Size = new Size(90, 30),
+                Location = new Point(95, 505),
+                Text = "Stop code",
                 Name = "StopCode"
             };
 
             Button buttonThree = new Button
             {
-                Size = new Size(60, 50),
-                Location = new Point(125, 505),
-                Text = "Reset",
+                Size = new Size(100, 80),
+                Location = new Point(855, 450),
+                Text = "Clear memory/\nregisters",
                 Name = "StopCode"
             };
 
@@ -121,6 +122,22 @@ namespace Assembly_Interpreter
                 DecimalPlaces = 1,
                 Value = 0.5M,
                 Name = "Delay"
+            };
+
+            Button openFile = new Button
+            {
+                Size = new Size(90, 30),
+                Location = new Point(5, 540),
+                Text = "Open file",
+                Name = "openFile"
+            };
+
+            Button saveFile = new Button
+            {
+                Size = new Size(90, 30),
+                Location = new Point(95, 540),
+                Text = "Save",
+                Name = "save"
             };
 
             Label memory = new Label
@@ -145,6 +162,8 @@ namespace Assembly_Interpreter
             button.Click += new EventHandler(RunCode_Click);
             buttonTwo.Click += new EventHandler(StopCode_Click);
             buttonThree.Click += new EventHandler(Reset_Click);
+            openFile.Click += new EventHandler(OpenFile_Click);
+            saveFile.Click += new EventHandler(SaveFile_Click);
             textBox.KeyDown += new KeyEventHandler(Code_KeyPress);
             delay.ValueChanged += new EventHandler(Delay_Changed);
 
@@ -158,6 +177,8 @@ namespace Assembly_Interpreter
             Controls.Add(button);
             Controls.Add(buttonTwo);
             Controls.Add(buttonThree);
+            Controls.Add(openFile);
+            Controls.Add(saveFile);
             Controls.Add(delayLabel);
             Controls.Add(delay);
             Controls.Add(memory);
@@ -229,6 +250,30 @@ namespace Assembly_Interpreter
 
             ClearAllHighlighting("LineNumbers");
             currentInstruction = -1;
+        }
+
+        public void OpenFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.DefaultExt = "*.txt";
+            fileDialog.Filter = "TXT Files|*.txt";
+            fileDialog.RestoreDirectory = true;
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+                ((RichTextBox)Controls["Code"]).Text = File.ReadAllText(fileDialog.FileName);
+
+            SyntaxHighlighting("Code");
+        }
+
+        public void SaveFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.DefaultExt = "*.txt";
+            fileDialog.Filter = "TXT Files|*.txt";
+            fileDialog.RestoreDirectory = true;
+
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+                File.WriteAllText(fileDialog.FileName, ((RichTextBox)Controls["Code"]).Text);
         }
 
         public void Code_KeyPress(object sender, KeyEventArgs e)

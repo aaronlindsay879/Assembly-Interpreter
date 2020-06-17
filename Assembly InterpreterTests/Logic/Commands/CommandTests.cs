@@ -33,7 +33,7 @@ namespace Assembly_Interpreter.Tests
             DataStorage memory = new DataStorage(100, true);
             DataStorage registers = new DataStorage(8, true);
             registers.SetData(0, 100f);
-            Program program = new Program(new Command("STR R0,10"));
+            Program program = new Program(new Command("STR R0,#10"));
             int cIR = 0;
 
             program.Execute(ref memory, ref registers, ref cIR, 0);
