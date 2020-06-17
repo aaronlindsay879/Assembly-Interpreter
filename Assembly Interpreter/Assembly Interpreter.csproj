@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\ErrorManager.cs" />
     <Compile Include="Logic\Commands\Bitwise\LSR.cs" />
     <Compile Include="Logic\Commands\Bitwise\MVN.cs" />
     <Compile Include="Logic\Commands\Bitwise\EOR.cs" />

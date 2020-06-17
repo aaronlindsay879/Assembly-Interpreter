@@ -10,10 +10,6 @@ namespace Assembly_Interpreter
     {
         public void HALT(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
-            //Ensure correct types for operand data
-            if (operand.Values.Count != 0)
-                throw new ArgumentException();
-
             //Set current instruction to -2 (will be handled by CU)
             currentInstruction = -2;
         }

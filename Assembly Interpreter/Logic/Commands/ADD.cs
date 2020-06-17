@@ -11,9 +11,8 @@ namespace Assembly_Interpreter
         public void ADD(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            if (operand.Values[0].OperandType != OperandType.Register
-             || operand.Values.Count != 3)
-                throw new ArgumentException();
+            ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
+            ErrorManager.OperatorCountMustBe(operand, 3);
 
             //Fetch data and add it together
             float firstArg = GetData(operand.Values[1], memory, registers);

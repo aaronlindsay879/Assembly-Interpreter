@@ -11,10 +11,9 @@ namespace Assembly_Interpreter
         public void STR(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            if (operand.Values[0].OperandType != OperandType.Register
-             || operand.Values[1].OperandType != OperandType.Memory
-             || operand.Values.Count != 2)
-                throw new ArgumentException();
+            ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
+            ErrorManager.OperandMustBe(operand, 1, OperandType.Register);
+            ErrorManager.OperatorCountMustBe(operand, 2);
 
             //Fetch data
             float data = GetData(operand.Values[0], memory, registers);

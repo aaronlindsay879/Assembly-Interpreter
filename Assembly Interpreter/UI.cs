@@ -79,7 +79,7 @@ namespace Assembly_Interpreter
                 Location = new Point(30, 5),
                 Multiline = true,
                 Name = "Code",
-                Text = "LDR R0,#10\nLDR R1,#2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,#20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
+                Text = "LDR R0,#10\nLDR R1,#2\nLSL R2,R0,R1\n\nLDR R3,#10\nLDR R4,20\nADD R3,R3,R4\nMOV R4,R3\nSTR R4,#20\n\nBGE R2,20,#15\nHALT\n\n\n\nLDR R7,#10"
             };
 
             Button button = new Button
@@ -185,8 +185,27 @@ namespace Assembly_Interpreter
             program = new Program(commands);
             
             //Create a thread which will execute commands one by one
-            runThread = new Thread(() => program.Execute(ref memory, ref registers, ref currentInstruction, delay));
+            runThread = new Thread(() => {
+                try
+                {
+                    program.Execute(ref memory, ref registers, ref currentInstruction, delay);
+                }
+                catch (ArgumentException err)
+                {
+                    //Needed in order to show error after halting thread
+                    new Thread(() => ThreadHandler(err)).Start();
+                }
+            });
             runThread.Start();
+        }
+
+        public void ThreadHandler(ArgumentException err)
+        {
+            //Kill thread that threw error
+            runThread.Abort();
+
+            MessageBox.Show(err.Message, "Warning",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         public void StopCode_Click(object sender, EventArgs e)
@@ -225,9 +244,13 @@ namespace Assembly_Interpreter
             textBox.SelectionColor = Color.Black;
 
             string[] opcodes = Enum.GetNames(typeof(Opcode));
-            string query = opcodes.Aggregate((a, b) => a + "|" + b) + "|R\\d|#\\d{1,3}|\\d{1,3}";
+            //Generates query containing all opcodes from enum
+            string query = opcodes.Aggregate((a, b) => a + "|" + b)
+                //Adds regex for operands
+                + "|R\\d|#\\d{1,3}|\\d{1,3}";
             MatchCollection matches = Regex.Matches(textBox.Text, query);
 
+            //For each match, identify the type of match (opcode, register, etc.) and colour it accordingly
             foreach (Match match in matches)
             {
                 textBox.Select(match.Index, match.Length);
@@ -270,6 +293,7 @@ namespace Assembly_Interpreter
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += new ThreadExceptionEventHandler(EventHandler);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
             Application.Run(new MyForm());
         }
