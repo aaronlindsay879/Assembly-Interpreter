@@ -17,6 +17,7 @@ namespace Assembly_Interpreter
         private Program program;
         private Thread runThread;
         private int currentInstruction;
+        private System.Windows.Forms.Timer timer;
 
         public MyForm()
         {
@@ -26,7 +27,7 @@ namespace Assembly_Interpreter
             InitComponents();
 
             //Create timer to update screen every 0.1 seconds
-            System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+            timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(UpdateScreen);
             timer.Interval = 100;
             timer.Enabled = true;
@@ -141,6 +142,7 @@ namespace Assembly_Interpreter
             button.Click += new EventHandler(RunCode_Click);
             buttonTwo.Click += new EventHandler(StopCode_Click);
             buttonThree.Click += new EventHandler(Reset_Click);
+            delay.ValueChanged += new EventHandler(Delay_Changed);
 
             //Adds line numbers to textbox
             for (int i = 0; i < 30; i++)
@@ -156,10 +158,12 @@ namespace Assembly_Interpreter
             Controls.Add(delay);
             Controls.Add(memory);
             Controls.Add(registers);
-            Size = new System.Drawing.Size(1000, 620);
 
-            //Ensures correct item is selected
+            //General window setup
             ActiveControl = textBox;
+            Size = new System.Drawing.Size(1000, 620);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Text = "Assembly Interpreter";
         }
 
         public void RunCode_Click(object sender, EventArgs e)
@@ -199,6 +203,16 @@ namespace Assembly_Interpreter
 
             ClearAllHighlighting();
             currentInstruction = -1;
+        }
+        public void Delay_Changed(object sender, EventArgs e)
+        {
+            float.TryParse(Controls["delay"].Text, out float delay);
+
+            //Constrain at 0.1 to avoid division by zero errors
+            delay = Math.Max(0.1f, delay);
+
+            //Update memory/registers twice as frequently as instructions are executed
+            timer.Interval = (int)(delay / 2 * 1000);
         }
 
         [STAThread]
