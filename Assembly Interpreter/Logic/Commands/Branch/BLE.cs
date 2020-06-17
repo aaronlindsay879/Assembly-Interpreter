@@ -12,10 +12,8 @@ namespace Assembly_Interpreter
         public void BLE(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            if (operand.Values[2].OperandType != OperandType.Value
-             || operand.Values[2].Value < 0 || operand.Values[2].Value > 29
-             || operand.Values.Count != 3)
-                throw new ArgumentException();
+            ErrorManager.OperandValueMustBeInRange(operand, 0, 0, 29);
+            ErrorManager.OperandCountMustBe(operand, 3);
 
             //If register one is less than or equal to register two, branch
             if (GetData(operand.Values[0], memory, registers) <= GetData(operand.Values[1], memory, registers))

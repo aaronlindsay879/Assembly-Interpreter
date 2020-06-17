@@ -12,7 +12,7 @@ namespace Assembly_Interpreter
         {
             //Ensure correct types for operand data
             ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
-            ErrorManager.OperatorCountMustBe(operand, 3);
+            ErrorManager.OperandCountMustBe(operand, 3);
 
             //Fetch data and add it together
             float firstArg = GetData(operand.Values[1], memory, registers);

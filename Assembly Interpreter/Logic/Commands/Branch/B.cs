@@ -11,10 +11,8 @@ namespace Assembly_Interpreter
         public void B(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            if (operand.Values[0].OperandType != OperandType.Value
-             || operand.Values[0].Value < 0 || operand.Values[0].Value > 29
-             || operand.Values.Count != 1)
-                throw new ArgumentException();
+            ErrorManager.OperandValueMustBeInRange(operand, 0, 0, 29);
+            ErrorManager.OperandCountMustBe(operand, 1);
 
             //Set current instruction to value
             currentInstruction = (int)GetData(operand.Values[0], memory, registers);
