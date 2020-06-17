@@ -1,6 +1,11 @@
 # Assembly-Interpreter
 
-This is a simple project which emulates a processor with a defineable amount of memory addresses and registers. It supports the following commands:
+This is a simple project which emulates a processor with a defineable amount of memory addresses and registers.
+
+Instructions are executed on the falling edge, which is shown as being executed as the next line number is highlighted.
+
+
+### Supported commands
 * Simpe instructions
     * LDR R*d*,[operand] - Loads the value in [operand] into register _d_
     * STR R*d*,[memory ref] - Stores the value in register _d_ into [memory ref]
