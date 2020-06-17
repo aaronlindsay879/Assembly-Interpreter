@@ -47,12 +47,13 @@ namespace Assembly_Interpreter
             string[] parts = input.Split(' ');
 
             //Check the input is right format
-            if (parts.Length != 2) 
+            if (parts.Length != 2 && parts[0] != "HALT") 
                 throw new ArgumentException();
 
             //Parse part-by-part
             opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
-            operand.Parse(parts[1]);
+            if (parts[0] != "HALT")
+                operand.Parse(parts[1]);
         }
 
         public override string ToString()
@@ -109,6 +110,10 @@ namespace Assembly_Interpreter
             map[Opcode.EOR] = EOR;
             map[Opcode.MVN] = MVN;
             map[Opcode.ORR] = ORR;
+            map[Opcode.LSL] = LSL;
+            map[Opcode.LSR] = LSR;
+
+            map[Opcode.HALT] = HALT;
 
             //Run current instruction with all arguments given
             map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction);

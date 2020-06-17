@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logic\Commands\Bitwise\LSR.cs" />
     <Compile Include="Logic\Commands\Bitwise\MVN.cs" />
     <Compile Include="Logic\Commands\Bitwise\EOR.cs" />
+    <Compile Include="Logic\Commands\Bitwise\LSL.cs" />
     <Compile Include="Logic\Commands\Bitwise\ORR.cs" />
     <Compile Include="Logic\Commands\Bitwise\AND.cs" />
     <Compile Include="Logic\Commands\Branch\BGE.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Logic\Commands\Branch\B.cs" />
     <Compile Include="Logic\Commands\ADD.cs" />
     <Compile Include="Logic\Commands\MOV.cs" />
+    <Compile Include="Logic\Commands\HALT.cs" />
     <Compile Include="Logic\Commands\SUB.cs" />
     <Compile Include="Logic\Commands\STR.cs" />
     <Compile Include="Logic\Element.cs" />

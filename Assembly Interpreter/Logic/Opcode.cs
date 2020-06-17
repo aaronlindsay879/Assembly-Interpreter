@@ -18,6 +18,9 @@
         AND,
         EOR,
         MVN,
-        ORR
+        ORR,
+        LSL,
+        LSR,
+        HALT
     }
 }

@@ -24,10 +24,18 @@ namespace Assembly_Interpreter.Logic
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
         {
-            while (currentInstruction < commands.Count)
+            bool HALT = false;
+
+            while (currentInstruction < commands.Count && !HALT)
             {
                 //Sleep for the specified delay so the user can see it executing
                 Thread.Sleep((int)(delay * 1000));
+
+                if (currentInstruction == -2)
+                {
+                    HALT = true;
+                    break;
+                }
 
                 //Fetch current instruction and then increment currentInstruction
                 Command CIR = commands[currentInstruction];

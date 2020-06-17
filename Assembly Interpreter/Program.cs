@@ -37,7 +37,7 @@ namespace Assembly_Interpreter
             Controls["mem"].Text = "Memory:\n" + memory.CreateOutput();
             Controls["reg"].Text = "Registers:\n" + registers.CreateOutput(1);
 
-            if (currentInstruction != -1)
+            if (currentInstruction >= 0)
             {
                 RichTextBox textBox = (RichTextBox)Controls["LineNumbers"];
 
