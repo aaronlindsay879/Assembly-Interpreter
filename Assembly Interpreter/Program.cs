@@ -183,8 +183,12 @@ namespace Assembly_Interpreter
 
         public void StopCode_Click(object sender, EventArgs e)
         {
-            runThread.Abort();
+            if (runThread != null)
+                if (runThread.IsAlive)
+                    runThread.Abort();
+
             currentInstruction = -1;
+            ClearAllHighlighting();
         }
 
         public void Reset_Click(object sender, EventArgs e)
