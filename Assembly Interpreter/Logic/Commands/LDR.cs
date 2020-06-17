@@ -16,8 +16,10 @@ namespace Assembly_Interpreter
              || operand.Values.Count != 2)
                 throw new ArgumentException();
 
+            //Fetch data
             float data = GetData(operand.Values[1], memory, registers);
 
+            //Set a register to that value
             registers.SetData((int)operand.Values[0].Value, data);
         }
     }

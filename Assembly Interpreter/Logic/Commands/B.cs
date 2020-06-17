@@ -16,7 +16,8 @@ namespace Assembly_Interpreter
              || operand.Values.Count != 1)
                 throw new ArgumentException();
 
-            currentInstruction = (int)operand.Values[0].Value;
+            //Set current instruction to value
+            currentInstruction = (int)GetData(operand.Values[0], memory, registers);
         }
     }
 }

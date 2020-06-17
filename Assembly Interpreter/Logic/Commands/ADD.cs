@@ -15,10 +15,12 @@ namespace Assembly_Interpreter
              || operand.Values.Count != 3)
                 throw new ArgumentException();
 
+            //Fetch data and add it together
             float firstArg = GetData(operand.Values[1], memory, registers);
             float secondArg = GetData(operand.Values[2], memory, registers);
             float data = firstArg + secondArg;
 
+            //Set a register to that value
             registers.SetData((int)operand.Values[0].Value, data);
         }
     }

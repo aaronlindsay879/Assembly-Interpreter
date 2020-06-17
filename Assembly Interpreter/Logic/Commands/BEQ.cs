@@ -17,7 +17,7 @@ namespace Assembly_Interpreter
              || operand.Values.Count != 3)
                 throw new ArgumentException();
 
-            Thread.Sleep((int)(delay * 1000));
+            //If the values are equal, branch - otherwise just increment currentInstruction like usual (this is due to change)
             if (GetData(operand.Values[0], memory, registers) == GetData(operand.Values[1], memory, registers))
                 currentInstruction = (int)operand.Values[0].Value;
             else

@@ -18,6 +18,7 @@ namespace Assembly_Interpreter
 
         public Command(string input)
         {
+            //Set default opcode, before parsing input
             opcode = Opcode.NONE;
             operand = new Operand();
             ParseCommand(input);
@@ -31,6 +32,7 @@ namespace Assembly_Interpreter
 
         public bool IsNull()
         {
+            //Check if opcode is still default value
             return opcode == Opcode.NONE;
         }
 
@@ -41,9 +43,11 @@ namespace Assembly_Interpreter
 
             string[] parts = input.Split(' ');
 
+            //Check the input is right format
             if (parts.Length != 2) 
                 throw new ArgumentException();
 
+            //Parse part-by-part
             opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
             operand.Parse(parts[1]);
         }
@@ -66,9 +70,11 @@ namespace Assembly_Interpreter
                     return element.Value;
 
                 case OperandType.Memory:
+                    //If memory address, fetch value at that memory address
                     return memory.GetData((int)element.Value);
 
                 case OperandType.Register:
+                    //If register, fetch value at that register
                     return registers.GetData((int)element.Value);
             }
 
@@ -77,6 +83,7 @@ namespace Assembly_Interpreter
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay)
         {
+            //Run relevant code for each opcode
             switch (opcode)
             {
                 case Opcode.LDR:

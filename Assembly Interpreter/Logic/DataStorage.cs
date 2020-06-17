@@ -17,11 +17,13 @@ namespace Assembly_Interpreter
 
         public void SetToZero()
         {
+            //Replace every element with the value 0f
             memory = memory.Select(x => 0f).ToArray();
         }
 
         public float GetData(int pos)
         {
+            //Check if pos is in range
             if (pos < memory.Length && pos >= 0)
                 return memory[pos];
 
@@ -30,6 +32,7 @@ namespace Assembly_Interpreter
 
         public bool SetData(int pos, float data)
         {
+            //If pos is in range, set value
             if (pos < memory.Length && pos >= 0)
             {
                 memory[pos] = data;
@@ -41,6 +44,7 @@ namespace Assembly_Interpreter
 
         public string CreateOutput(int rows = 10)
         {
+            //This is a mess, will fix later on
             string output = "│";
             int cols = (int)Math.Ceiling((float)memory.Length / rows);
             int currentPosOne = 0;
