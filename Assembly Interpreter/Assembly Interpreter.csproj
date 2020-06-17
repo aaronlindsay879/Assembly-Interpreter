@@ -72,7 +72,7 @@
     <Compile Include="Logic\Command.cs" />
     <Compile Include="Logic\DataStorage.cs" />
     <Compile Include="Logic\Operand.cs" />
-    <Compile Include="Program.cs">
+    <Compile Include="UI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

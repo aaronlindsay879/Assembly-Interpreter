@@ -16,12 +16,6 @@ namespace Assembly_Interpreter.Logic
             this.commands = commands.ToList();
         }
 
-        private bool IsJump(Opcode opcode)
-        {
-            string stringOpcode = opcode.ToString();
-            return stringOpcode[0] == 'B';
-        }
-
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
         {
             bool HALT = false;
