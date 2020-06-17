@@ -38,6 +38,7 @@ namespace Assembly_Interpreter
 
         public void ParseCommand(string input)
         {
+            input = input.Split(';')[0];
             if (input == "")
                 return;
 
