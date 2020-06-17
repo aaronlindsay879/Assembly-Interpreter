@@ -12,7 +12,7 @@ namespace Assembly_Interpreter
         {
             //Ensure correct types for operand data
             ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
-            ErrorManager.OperandMustBe(operand, 1, OperandType.Register);
+            ErrorManager.OperandMustBe(operand, 1, OperandType.Value);
             ErrorManager.OperandCountMustBe(operand, 2);
 
             //Fetch data

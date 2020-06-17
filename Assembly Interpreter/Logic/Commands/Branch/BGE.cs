@@ -12,7 +12,7 @@ namespace Assembly_Interpreter
         public void BGE(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            ErrorManager.OperandValueMustBeInRange(operand, 0, 0, 29);
+            ErrorManager.OperandValueMustBeInRange(operand, 2, 0, 29);
             ErrorManager.OperandCountMustBe(operand, 3);
 
             //If register 1 is greater than or equal to register 2, branch

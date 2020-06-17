@@ -12,7 +12,7 @@ namespace Assembly_Interpreter
         public void BLT(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            ErrorManager.OperandValueMustBeInRange(operand, 0, 0, 29);
+            ErrorManager.OperandValueMustBeInRange(operand, 2, 0, 29);
             ErrorManager.OperandCountMustBe(operand, 3);
 
             //If register one is less than register two, branch
