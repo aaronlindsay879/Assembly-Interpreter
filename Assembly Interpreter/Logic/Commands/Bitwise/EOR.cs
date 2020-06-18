@@ -5,9 +5,9 @@
         public void EOR(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
         {
             //Ensure correct types for operand data
-            ErrorManager.OperandCountMustBe(operand, 3);
-            ErrorManager.OperandMustBe(operand, 0, OperandType.Register);
-            ErrorManager.OperandMustBe(operand, 1, OperandType.Register);
+            ErrorManager.OperandCountMustBe(operand, 3, currentInstruction);
+            ErrorManager.OperandMustBe(operand, 0, OperandType.Register, currentInstruction);
+            ErrorManager.OperandMustBe(operand, 1, OperandType.Register, currentInstruction);
 
             //Fetch data and use bitwise xor on casted data
             float firstArg = GetData(operand.Values[1], memory, registers);
