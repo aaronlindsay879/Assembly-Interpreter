@@ -34,6 +34,7 @@ namespace Assembly_Interpreter
                 {
                     program.Execute(ref memory, ref registers, ref currentInstruction, delay);
                     Controls["RunCode"].Enabled = true;
+                    ((RichTextBox)Controls["Code"]).ReadOnly = false;
                 }
                 catch (ArgumentException err)
                 {
