@@ -10,16 +10,29 @@ namespace Assembly_Interpreter
     {
         private Opcode opcode;
         private Operand operand;
+        private int index;
 
         public Opcode Opcode { get => opcode; set => opcode = value; }
         public Operand Operand { get => operand; set => operand = value; }
 
+        public Command(string input, int index)
+        {
+            //Set default opcode, before parsing input
+            opcode = Opcode.NONE;
+            operand = new Operand();
+
+            ParseCommand(input, index);
+
+            this.index = index;
+        }
         public Command(string input)
         {
             //Set default opcode, before parsing input
             opcode = Opcode.NONE;
             operand = new Operand();
-            ParseCommand(input);
+
+            ParseCommand(input, 0);
+            index = 0;
         }
 
         public Command(Opcode opcode, Operand operand)
@@ -34,7 +47,7 @@ namespace Assembly_Interpreter
             return opcode == Opcode.NONE;
         }
 
-        public void ParseCommand(string input)
+        public void ParseCommand(string input, int index)
         {
             input = input.Split(';')[0];
             if (input == "")
@@ -44,12 +57,12 @@ namespace Assembly_Interpreter
 
             //Check the input is right format
             if (parts.Length != 2 && parts[0] != "HALT")
-                throw new ArgumentException($"Command ({input}) did not have 2 parts");
+                throw new ArgumentException($"Instruction {ErrorManager.HandleInstruction(index)} did not have 2 parts");
 
             //Parse part-by-part
             opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
             if (parts[0] != "HALT")
-                operand.Parse(parts[1]);
+                operand.Parse(parts[1], index);
         }
 
         public override string ToString()

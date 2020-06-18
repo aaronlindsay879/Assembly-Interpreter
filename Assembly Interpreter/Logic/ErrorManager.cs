@@ -6,7 +6,7 @@ namespace Assembly_Interpreter
     {
         //Class to help remove duplicate code in checking operand conditions
 
-        private static string NumToOrdinal(int num)
+        public static string NumToOrdinal(int num)
         {
             //Converts number into ordinal, accounting for 0 indexing
             if (num == 0)
@@ -21,9 +21,9 @@ namespace Assembly_Interpreter
             return "";
         }
 
-        private static string HandleInstruction(int instruction)
+        public static string HandleInstruction(int instruction, int shift = 1)
         {
-            return (instruction - 1).ToString().PadLeft(2, '0');
+            return (instruction - shift).ToString().PadLeft(2, '0');
         }
 
         public static void OperandMustBe(Operand operand, int operandNum, OperandType needed, int instruction)

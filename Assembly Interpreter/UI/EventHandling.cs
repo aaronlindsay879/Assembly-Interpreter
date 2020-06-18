@@ -22,7 +22,7 @@ namespace Assembly_Interpreter
             string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
 
             //Convert all the strings into commands
-            Command[] commands = splitText.Select(x => new Command(x)).ToArray();
+            Command[] commands = splitText.Select((x, i) => new Command(x, i)).ToArray();
 
             float.TryParse(Controls["Delay"].Text, out float delay);
             program = new Program(commands);

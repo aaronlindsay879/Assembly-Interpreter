@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Assembly_Interpreter
@@ -19,27 +20,34 @@ namespace Assembly_Interpreter
             this.values = values.ToList();
         }
 
-        public void Parse(string input)
+        public void Parse(string input, int index)
         {
             string[] parts = input.Split(',');
 
-            foreach (string data in parts)
+            //Get data and current position for each part
+            foreach (var (data, i) in parts.Select((a, b) => (a, b)))
             {
                 switch (data)
                 {
                     case string register when register[0] == 'R':
                         //If the partial operand is a register, strip the first character and parse the register number
-                        int.TryParse(register.Remove(0, 1), out int registerNum);
+                        if (!int.TryParse(register.Remove(0, 1), out int registerNum))
+                            throw new ArgumentException($"{ErrorManager.NumToOrdinal(i)} operand in instruction" +
+                                $" {ErrorManager.HandleInstruction(index, 0)} was not a valid Register");
                         Values.Add(new Element(OperandType.Register, registerNum));
                         break;
                     case string value when value[0] == '#':
                         //If partial operand is value (immediate addressing), strip first character and parse value
-                        int.TryParse(value.Remove(0, 1), out int valueNum);
+                        if (!int.TryParse(value.Remove(0, 1), out int valueNum))
+                            throw new ArgumentException($"{ErrorManager.NumToOrdinal(i)} operand in instruction" +
+                                $" {ErrorManager.HandleInstruction(index, 0)} was not a valid Value");
                         Values.Add(new Element(OperandType.Value, valueNum));
                         break;
                     case string memory:
                         //If partial operand is memory address (direct addressing), parse value
-                        int.TryParse(memory, out int memoryRef);
+                        if (!int.TryParse(memory, out int memoryRef))
+                            throw new ArgumentException($"{ErrorManager.NumToOrdinal(i)} operand in instruction" +
+                                $" {ErrorManager.HandleInstruction(index, 0)} was not a valid Memory Address");
                         Values.Add(new Element(OperandType.Memory, memoryRef));
                         break;
                 }
