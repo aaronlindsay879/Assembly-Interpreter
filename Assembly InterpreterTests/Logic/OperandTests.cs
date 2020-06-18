@@ -21,7 +21,7 @@ namespace Assembly_Interpreter.Tests
             foreach (var pair in pairs)
             {
                 operand.Values = new List<Element>();
-                operand.Parse(pair.Key);
+                operand.Parse(pair.Key, 0);
 
                 for (int i = 0; i < pair.Value.Values.Count; i++)
                     Assert.IsTrue(pair.Value.Values[i].Value == operand.Values[i].Value
