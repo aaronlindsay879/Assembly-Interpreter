@@ -22,6 +22,20 @@ namespace Assembly_Interpreter.Tests
         }
 
         [TestMethod()]
+        public void ExecuteTestHalt()
+        {
+            DataStorage memory = new DataStorage(100, true);
+            DataStorage registers = new DataStorage(8, true);
+            Program program = new Program(new Command("HALT"),
+                                          new Command("LDR R0,#10"));
+            int cIR = 0;
+
+            program.Execute(ref memory, ref registers, ref cIR, 0);
+
+            Assert.IsTrue(registers.GetData(0) == 0f);
+        }
+
+        [TestMethod()]
         public void ExecuteTestStr()
         {
             DataStorage memory = new DataStorage(100, true);
