@@ -2,7 +2,7 @@
 
 namespace Assembly_Interpreter
 {
-    abstract class ErrorManager
+    public abstract class ErrorManager
     {
         //Class to help remove duplicate code in checking operand conditions
 
