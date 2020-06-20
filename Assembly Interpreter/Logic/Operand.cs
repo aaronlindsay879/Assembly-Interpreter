@@ -53,5 +53,16 @@ namespace Assembly_Interpreter
                 }
             }
         }
+
+        public bool Equals(Operand other)
+        {
+            if (Values.Count != other.Values.Count)
+                return false;
+
+            if (Values.Count == 0)
+                return true;
+
+            return Values.Select((x, i) => x == other.Values[i]).Contains(false);
+        }
     }
 }

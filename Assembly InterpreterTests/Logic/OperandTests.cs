@@ -9,7 +9,7 @@ namespace Assembly_Interpreter.Tests
         [TestMethod()]
         public void ParseTest()
         {
-            Operand operand = new Operand();
+            
             Dictionary<string, Operand> pairs = new Dictionary<string, Operand>();
 
             pairs.Add("R1", new Operand(new Element(OperandType.Register, 1)));
@@ -20,12 +20,10 @@ namespace Assembly_Interpreter.Tests
 
             foreach (var pair in pairs)
             {
-                operand.Values = new List<Element>();
+                Operand operand = new Operand();
                 operand.Parse(pair.Key, 0);
 
-                for (int i = 0; i < pair.Value.Values.Count; i++)
-                    Assert.IsTrue(pair.Value.Values[i].Value == operand.Values[i].Value
-                               && pair.Value.Values[i].OperandType == operand.Values[i].OperandType);
+                Assert.IsTrue(operand.Equals(pair.Value));
             }
         }
     }

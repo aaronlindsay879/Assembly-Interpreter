@@ -127,5 +127,11 @@ namespace Assembly_Interpreter
             //Run current instruction with all arguments given
             map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction);
         }
+
+        public bool Equals(Command other)
+        {
+            return Opcode == other.Opcode
+                && Operand.Equals(other.Operand);
+        }
     }
 }
