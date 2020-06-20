@@ -17,15 +17,11 @@ namespace Assembly_Interpreter
             ClearAllHighlighting("LineNumbers");
             SyntaxHighlighting("Code");
 
-            //Get the text from the textbox, and split on every newline
+            //Get the text from the textbox, and parse into program
             string textBox = Controls["Code"].Text.Trim();
-            string[] splitText = textBox.Split(new[] { "\n" }, StringSplitOptions.None);
-
-            //Convert all the strings into commands
-            Command[] commands = splitText.Select((x, i) => new Command(x, i)).ToArray();
+            program = new Program(textBox);
 
             float.TryParse(Controls["Delay"].Text, out float delay);
-            program = new Program(commands);
 
             //Create a thread which will execute commands one by one
             runThread = new Thread(() =>

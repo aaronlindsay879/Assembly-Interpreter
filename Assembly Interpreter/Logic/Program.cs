@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -11,6 +12,15 @@ namespace Assembly_Interpreter
         public Program(params Command[] commands)
         {
             this.commands = commands.ToList();
+        }
+
+        public Program(string input)
+        {
+            //Split text on every newline
+            string[] splitText = input.Split(new[] { "\n" }, StringSplitOptions.None);
+
+            //Convert all the strings into commands
+            commands = splitText.Select((x, i) => new Command(x, i)).ToList();
         }
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
