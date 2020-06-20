@@ -56,6 +56,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Logic\FullProgramTest.cs" />
     <Compile Include="Logic\Commands\CommandBitwiseTests.cs" />
     <Compile Include="Logic\Commands\CommandBranchTests.cs" />
     <Compile Include="Logic\Commands\CommandBasicTests.cs" />
