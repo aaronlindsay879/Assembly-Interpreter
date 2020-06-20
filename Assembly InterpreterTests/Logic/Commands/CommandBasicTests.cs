@@ -1,9 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Assembly_Interpreter;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assembly_Interpreter.Tests
 {
     [TestClass()]
-    public class CommandTests
+    public class CommandBasicTests
     {
         [TestMethod()]
         public void ExecuteTestLdr()

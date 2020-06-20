@@ -56,8 +56,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Logic\Commands\CommandBitwiseTests.cs" />
     <Compile Include="Logic\Commands\CommandBranchTests.cs" />
-    <Compile Include="Logic\Commands\CommandTests.cs" />
+    <Compile Include="Logic\Commands\CommandBasicTests.cs" />
     <Compile Include="Logic\OperandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
