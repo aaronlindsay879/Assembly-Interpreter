@@ -1,5 +1,4 @@
-﻿using Assembly_Interpreter;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Assembly_Interpreter.Tests
 {

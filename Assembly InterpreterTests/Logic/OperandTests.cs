@@ -9,7 +9,6 @@ namespace Assembly_Interpreter.Tests
         [TestMethod()]
         public void ParseTest()
         {
-            
             Dictionary<string, Operand> pairs = new Dictionary<string, Operand>();
 
             pairs.Add("R1", new Operand(new Element(OperandType.Register, 1)));
