@@ -51,12 +51,10 @@ namespace Assembly_Interpreter
             int currentPosTwo = 0;
             int currentPosThree = 0;
 
-            for (int j = 0; j < rows; j++)
+            for (int j = 0; j < Math.Min(rows, memory.Length); j++)
             {
-                if (currentPosOne >= memory.Length)
-                    break;
                 output += "──────";
-                output += j == rows - 1 ? "┐" : "┬";
+                output += j == Math.Min(rows, memory.Length) - 1 ? "┐" : "┬";
             }
             output += "\n│";
 
@@ -83,7 +81,7 @@ namespace Assembly_Interpreter
                     if (currentPosThree++ >= memory.Length)
                         break;
                     output += "──────";
-                    output += j == rows - 1 ? (i == cols - 1 ? "┘" : "┤") : (i == cols - 1 ? "┴" : "┼");
+                    output += j == Math.Min(rows, memory.Length) - 1 ? (i == cols - 1 ? "┘" : "┤") : (i == cols - 1 ? "┴" : "┼");
                 }
                 output += (currentPosThree >= memory.Length) ? "\n" : "\n│";
             }

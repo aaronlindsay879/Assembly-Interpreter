@@ -60,6 +60,7 @@
     <Compile Include="Logic\Commands\CommandBranchTests.cs" />
     <Compile Include="Logic\Commands\CommandBasicTests.cs" />
     <Compile Include="Logic\CommandTests.cs" />
+    <Compile Include="Logic\DataStorageTests.cs" />
     <Compile Include="Logic\ErrorManagerTests.cs" />
     <Compile Include="Logic\OperandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
