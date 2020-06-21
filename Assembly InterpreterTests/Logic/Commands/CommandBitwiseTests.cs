@@ -17,7 +17,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("AND R7,R1,R2"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == 7f
                        && registers.GetData(7) == 0f);
@@ -35,7 +35,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("EOR R7,R1,R2"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == 8f
                        && registers.GetData(7) == 31f);
@@ -53,7 +53,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LSL R7,R1,R2"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == 229376f
                        && registers.GetData(7) == 983040f);
@@ -71,7 +71,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LSR R7,R0,R2"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == 3f
                        && registers.GetData(7) == 0f);
@@ -88,7 +88,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("MVN R7,R1"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == -8f
                        && registers.GetData(7) == -16f);
@@ -106,7 +106,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("ORR R7,R1,R2"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(6) == 15f
                        && registers.GetData(7) == 31f);

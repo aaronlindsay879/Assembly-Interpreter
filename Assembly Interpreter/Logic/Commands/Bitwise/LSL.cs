@@ -2,7 +2,7 @@
 {
     public partial class Command
     {
-        public void LSL(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
+        public void LSL(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction)
         {
             //Ensure correct types for operand data
             ErrorManager.OperandCountMustBe(operand, 3, currentInstruction);

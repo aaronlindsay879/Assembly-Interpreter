@@ -35,7 +35,7 @@ namespace Assembly_Interpreter.Tests
             Program program = new Program(command);
 
 
-            program.Execute(ref memory, ref registers, ref currentInstruction, 0);
+            program.Execute(ref memory, ref registers, ref currentInstruction, 30);
             Assert.IsTrue(registers.GetData(7) == 40f);
         }
 
@@ -68,7 +68,7 @@ namespace Assembly_Interpreter.Tests
             Program program = new Program(command);
 
 
-            program.Execute(ref memory, ref registers, ref currentInstruction, 0);
+            program.Execute(ref memory, ref registers, ref currentInstruction, 30);
             Assert.IsTrue(memory.GetData(15) == 2944f);
         }
     }

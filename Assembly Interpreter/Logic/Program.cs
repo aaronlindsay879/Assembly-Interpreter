@@ -23,7 +23,7 @@ namespace Assembly_Interpreter
             commands = splitText.Select((x, i) => new Command(x, i)).ToList();
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, float delay = 1.5f)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, float delay = 0f)
         {
             bool HALT = false;
 
@@ -44,7 +44,7 @@ namespace Assembly_Interpreter
 
                 //If there is a command, execute it
                 if (!CIR.IsNull())
-                    CIR.Execute(ref memory, ref registers, ref currentInstruction);
+                    CIR.Execute(ref memory, ref registers, ref currentInstruction, maxInstruction);
             }
         }
     }

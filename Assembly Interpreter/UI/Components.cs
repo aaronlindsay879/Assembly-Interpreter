@@ -124,7 +124,7 @@ namespace Assembly_Interpreter
             delay.ValueChanged += new EventHandler(Delay_Changed);
 
             //Adds line numbers to textbox
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < numLines; i++)
                 lineNumbers.Text += i.ToString().PadLeft(2, '0') + "\n";
 
             //Add all elements to screen

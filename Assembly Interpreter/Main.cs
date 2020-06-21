@@ -11,11 +11,13 @@ namespace Assembly_Interpreter
         private Program program;
         private Thread runThread;
         private int currentInstruction;
+        private int numLines;
         private System.Windows.Forms.Timer timer;
 
         public MyForm()
         {
             currentInstruction = -1;
+            numLines = 30;
             memory = new DataStorage(100, true);
             registers = new DataStorage(8, true);
             InitComponents();

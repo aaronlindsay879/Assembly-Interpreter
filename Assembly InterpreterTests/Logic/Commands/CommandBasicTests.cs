@@ -15,7 +15,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,0"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
                        && registers.GetData(1) == 100f);
@@ -30,7 +30,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R0,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 0f);
         }
@@ -44,7 +44,7 @@ namespace Assembly_Interpreter.Tests
             Program program = new Program(new Command("STR R0,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(memory.GetData(10) == 100f);
         }
@@ -63,7 +63,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("ADD R2,10,20"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 30f
                        && registers.GetData(1) == 50f
@@ -84,7 +84,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("SUB R2,20,10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
                        && registers.GetData(1) == 30f
@@ -100,7 +100,7 @@ namespace Assembly_Interpreter.Tests
             Program program = new Program(new Command("MOV R1,R0"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(1) == 10f);
         }

@@ -1,10 +1,24 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Assembly_Interpreter.Tests
 {
     [TestClass()]
     public class CommandBranchTests
     {
+        [TestMethod()]
+        public void ExecuteTestBranchMaxInstruction()
+        {
+            DataStorage memory = new DataStorage(100, true);
+            DataStorage registers = new DataStorage(8, true);
+            Program program = new Program(new Command("B #2"),
+                                          new Command("LDR R0,#5"),
+                                          new Command("LDR R0,#10"));
+            int cIR = 0;
+
+            Assert.ThrowsException<ArgumentException>(() => program.Execute(ref memory, ref registers, ref cIR, 1));
+        }
+
         [TestMethod()]
         public void ExecuteTestB()
         {
@@ -15,7 +29,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R0,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f);
         }
@@ -39,7 +53,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
                        && registers.GetData(1) == 10f);
@@ -64,7 +78,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
                        && registers.GetData(1) == 5f);
@@ -89,7 +103,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
                        && registers.GetData(1) == 10f);
@@ -114,7 +128,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
                        && registers.GetData(1) == 5f);
@@ -139,7 +153,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
                        && registers.GetData(1) == 10f);
@@ -164,7 +178,7 @@ namespace Assembly_Interpreter.Tests
                                           new Command("LDR R1,#10"));
             int cIR = 0;
 
-            program.Execute(ref memory, ref registers, ref cIR, 0);
+            program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
                        && registers.GetData(1) == 10f);

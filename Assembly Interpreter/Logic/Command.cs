@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Assembly_Interpreter
 {
     //Custom action type for opcode functions
-    delegate void OpcodeAction<T1, T2, T3, T4>(T1 operand, ref T2 mem, ref T3 reg, ref T4 cInstruct);
+    delegate void OpcodeAction<T1, T2, T3, T4, T5>(T1 operand, ref T2 mem, ref T3 reg, ref T4 cInstruct, T5 mInstruct);
 
     public partial class Command
     {
@@ -94,11 +94,11 @@ namespace Assembly_Interpreter
             return 0f;
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction)
         {
             //Create dictionary to map opcodes to functions
-            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>> map =
-                new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int>>();
+            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int>> map =
+                new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int>>();
 
             //Add all opcodes and functions to dictionary
             map[Opcode.LDR] = LDR;
@@ -125,7 +125,7 @@ namespace Assembly_Interpreter
             map[Opcode.HALT] = HALT;
 
             //Run current instruction with all arguments given
-            map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction);
+            map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction, maxInstruction);
         }
 
         public bool Equals(Command other)
