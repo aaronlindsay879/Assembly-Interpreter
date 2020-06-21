@@ -42,6 +42,10 @@ namespace Assembly_Interpreter
                 Command CIR = commands[currentInstruction];
                 currentInstruction++;
 
+                if (currentInstruction > maxInstruction)
+                    throw new ArgumentException($"Instruction {ErrorManager.HandleInstruction(currentInstruction, 0)} is outside the range allowed," +
+                                                $" {ErrorManager.HandleInstruction(maxInstruction, 0)} is the highest allowed instruction");
+
                 //If there is a command, execute it
                 if (!CIR.IsNull())
                     CIR.Execute(ref memory, ref registers, ref currentInstruction, maxInstruction);
