@@ -2,7 +2,7 @@
 {
     public partial class Command
     {
-        public void HALT(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction)
+        public void HALT(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, ref Operand comparer)
         {
             //Set current instruction to -2 (will be handled by CU)
             currentInstruction = -2;

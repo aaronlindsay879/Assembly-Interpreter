@@ -14,6 +14,7 @@
         BLT,
         BGE,
         BLE,
+        CMP,
         B,
         AND,
         EOR,

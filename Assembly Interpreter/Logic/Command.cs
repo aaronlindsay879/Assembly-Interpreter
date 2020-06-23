@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Assembly_Interpreter
 {
     //Custom action type for opcode functions
-    delegate void OpcodeAction<T1, T2, T3, T4, T5>(T1 operand, ref T2 mem, ref T3 reg, ref T4 cInstruct, T5 mInstruct);
+    delegate void OpcodeAction<T1, T2, T3, T4, T5, T6>(T1 operand, ref T2 mem, ref T3 reg, ref T4 cInstruct, T5 mInstruct, ref T6 comparer);
 
     public partial class Command
     {
@@ -94,11 +94,11 @@ namespace Assembly_Interpreter
             return 0f;
         }
 
-        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction)
+        public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, ref Operand comparer)
         {
             //Create dictionary to map opcodes to functions
-            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int>> map =
-                new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int>>();
+            Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int, Operand>> map =
+                new Dictionary<Opcode, OpcodeAction<Operand, DataStorage, DataStorage, int, int, Operand>>();
 
             //Add all opcodes and functions to dictionary
             map[Opcode.LDR] = LDR;
@@ -107,6 +107,7 @@ namespace Assembly_Interpreter
             map[Opcode.SUB] = SUB;
             map[Opcode.MOV] = MOV;
 
+            map[Opcode.CMP] = CMP;
             map[Opcode.B] = B;
             map[Opcode.BEQ] = BEQ;
             map[Opcode.BNE] = BNE;
@@ -125,7 +126,7 @@ namespace Assembly_Interpreter
             map[Opcode.HALT] = HALT;
 
             //Run current instruction with all arguments given
-            map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction, maxInstruction);
+            map[opcode].Invoke(operand, ref memory, ref registers, ref currentInstruction, maxInstruction, ref comparer);
         }
 
         public bool Equals(Command other)

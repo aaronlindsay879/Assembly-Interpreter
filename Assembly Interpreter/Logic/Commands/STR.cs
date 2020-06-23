@@ -2,7 +2,7 @@
 {
     public partial class Command
     {
-        public void STR(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction)
+        public void STR(Operand operand, ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, ref Operand comparer)
         {
             //Ensure correct types for operand data
             ErrorManager.OperandCountMustBe(operand, 2, currentInstruction);

@@ -26,6 +26,7 @@ namespace Assembly_Interpreter
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, float delay = 0f)
         {
             bool HALT = false;
+            Operand comparer = new Operand();
 
             while (currentInstruction < commands.Count && !HALT)
             {
@@ -48,7 +49,7 @@ namespace Assembly_Interpreter
 
                 //If there is a command, execute it
                 if (!CIR.IsNull())
-                    CIR.Execute(ref memory, ref registers, ref currentInstruction, maxInstruction);
+                    CIR.Execute(ref memory, ref registers, ref currentInstruction, maxInstruction, ref comparer);
             }
         }
     }
