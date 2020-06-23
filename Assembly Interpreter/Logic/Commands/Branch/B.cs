@@ -9,7 +9,7 @@
             ErrorManager.OperandValueMustBeInRange(operand, 0, 0, maxInstruction, currentInstruction);
 
             //Set current instruction to value
-            currentInstruction = (int)GetData(comparer.Values[0], memory, registers);
+            currentInstruction = (int)GetData(operand.Values[0], memory, registers);
         }
     }
 }

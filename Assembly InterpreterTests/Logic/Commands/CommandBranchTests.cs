@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 
 namespace Assembly_Interpreter.Tests
 {
@@ -43,16 +44,23 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 5f);
             memory.SetData(3, 5f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BEQ 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BEQ 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
 
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BEQ #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BEQ #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
+
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
@@ -68,16 +76,22 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 5f);
             memory.SetData(3, 5f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BNE 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BNE 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BNE #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BNE #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
 
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
@@ -93,16 +107,22 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 10f);
             memory.SetData(3, 5f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BGT 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BGT 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BGT #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BGT #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
 
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
@@ -118,16 +138,22 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 10f);
             memory.SetData(3, 5f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BLT 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BLT 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BLT #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BLT #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
 
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f
@@ -143,16 +169,22 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 10f);
             memory.SetData(3, 10f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BGE 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BGE 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BGE #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BGE #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
 
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 5f
@@ -168,16 +200,22 @@ namespace Assembly_Interpreter.Tests
             memory.SetData(2, 10f);
             memory.SetData(3, 10f);
             DataStorage registers = new DataStorage(8, true);
-            Program program = new Program(new Command("BLE 0,1,#3"),
-                                          new Command("LDR R0,#5"),
-                                          new Command("B #4"),
-                                          new Command("LDR R0,#10"),
-                                          new Command("BLE 2,3,#7"),
-                                          new Command("LDR R1,#5"),
-                                          new Command("HALT"),
-                                          new Command("LDR R1,#10"));
-            int cIR = 0;
+            Program program = new Program(new string[]
+            {
+                "CMP 0,1",
+                "BLE #4",
+                "LDR R0,#5",
+                "B #5",
+                "LDR R0,#10",
+                "CMP 2,3",
+                "BLE #9",
+                "LDR R1,#5",
+                "HALT",
+                "LDR R1,#10"
+            }.Aggregate((a, b) => a + "\n" + b));
 
+
+            int cIR = 0;
             program.Execute(ref memory, ref registers, ref cIR, 30);
 
             Assert.IsTrue(registers.GetData(0) == 10f

@@ -13,7 +13,7 @@ namespace Assembly_Interpreter.Tests
             DataStorage registers = new DataStorage(8, true);
             int currentInstruction = 0;
 
-            string command = new string[]
+            Program program = new Program(new string[]
             {
                 "LDR R0,#10",
                 "LDR R1,#2",
@@ -25,14 +25,14 @@ namespace Assembly_Interpreter.Tests
                 "MOV R4,R3",
                 "STR R4,#20",
                 "",
-                "BGE R2,20,#15",
+                "CMP R2,20",
+                "BGE #16",
                 "HALT",
                 "",
                 "",
                 "",
                 "MOV R7,R2"
-            }.Aggregate((a, b) => a + "\n" + b);
-            Program program = new Program(command);
+            }.Aggregate((a, b) => a + "\n" + b));
 
 
             program.Execute(ref memory, ref registers, ref currentInstruction, 30);
@@ -46,26 +46,27 @@ namespace Assembly_Interpreter.Tests
             DataStorage registers = new DataStorage(8, true);
             int currentInstruction = 0;
 
-            string command = new string[]
+            Program program = new Program(new string[]
             {
                 "LDR R0,#7",
                 "LDR R1,#15",
                 "AND R2,R0,R1",
                 "ADD R3,R0,R1",
                 "ORR R3,R0,R3",
-                "BEQ #23,R3,#07",
+                "CMP #23,R3",
+                "BEQ #8",
                 "HALT",
                 "LSL R3,R3,R0",
                 "MOV R7,R3",
-                "BNE R7,R3,#15",
+                "CMP R7,R3",
+                "BNE #17",
                 "STR R7,#15",
                 "HALT",
                 "",
                 "",
                 "",
                 "HALT"
-            }.Aggregate((a, b) => a + "\n" + b);
-            Program program = new Program(command);
+            }.Aggregate((a, b) => a + "\n" + b));
 
 
             program.Execute(ref memory, ref registers, ref currentInstruction, 30);
