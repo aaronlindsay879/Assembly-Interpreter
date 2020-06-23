@@ -30,16 +30,13 @@ namespace Assembly_Interpreter
             throw new ArgumentException($"{element} is not a valid piece of data");
         }
 
-        public bool SetData(int pos, float data)
+        public void SetData(int pos, float data)
         {
             //If pos is in range, set value
             if (pos < memory.Length && pos >= 0)
-            {
                 memory[pos] = data;
-                return true;
-            }
-
-            return false;
+            else
+                throw new ArgumentException($"{pos} is not a valid data slot");
         }
 
         public string CreateOutput(int rows = 10)
