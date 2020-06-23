@@ -21,13 +21,13 @@ namespace Assembly_Interpreter
             memory = memory.Select(x => 0f).ToArray();
         }
 
-        public float GetData(int pos)
+        public float GetData(int pos, Element element = null)
         {
             //Check if pos is in range
             if (pos < memory.Length && pos >= 0)
                 return memory[pos];
 
-            return 0f;
+            throw new ArgumentException($"{element} is not a valid piece of data");
         }
 
         public bool SetData(int pos, float data)

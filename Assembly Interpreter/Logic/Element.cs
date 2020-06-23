@@ -1,5 +1,5 @@
 ﻿namespace Assembly_Interpreter
-{
+{ 
     public class Element
     {
         private OperandType operandType;
@@ -12,6 +12,14 @@
         {
             this.OperandType = operandType;
             this.Value = value;
+        }
+
+        public override string ToString()
+        {
+            string output = operandType == OperandType.Value ? "" : operandType.ToString();
+            output += value.ToString();
+
+            return output;
         }
     }
 }

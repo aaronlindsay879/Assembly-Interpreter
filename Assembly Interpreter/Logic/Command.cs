@@ -57,7 +57,7 @@ namespace Assembly_Interpreter
 
             //Check the input is right format
             if (parts.Length != 2 && parts[0] != "HALT")
-                throw new ArgumentException($"Instruction {ErrorManager.HandleInstruction(index)} did not have 2 parts");
+                throw new ArgumentException($"Instruction {ErrorManager.HandleInstruction(index, 0)} did not have 2 parts");
 
             //Parse part-by-part
             opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
@@ -84,14 +84,14 @@ namespace Assembly_Interpreter
 
                 case OperandType.Memory:
                     //If memory address, fetch value at that memory address
-                    return memory.GetData((int)element.Value);
+                    return memory.GetData((int)element.Value, element);
 
                 case OperandType.Register:
                     //If register, fetch value at that register
-                    return registers.GetData((int)element.Value);
+                    return registers.GetData((int)element.Value, element);
             }
 
-            return 0f;
+            throw new ArgumentException($"{element} is not a register, memory address or value.");
         }
 
         public void Execute(ref DataStorage memory, ref DataStorage registers, ref int currentInstruction, int maxInstruction, ref Operand comparer)
