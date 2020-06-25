@@ -60,7 +60,15 @@ namespace Assembly_Interpreter
                 throw new ArgumentException($"Instruction {ErrorManager.HandleInstruction(index, 0)} did not have 2 parts");
 
             //Parse part-by-part
-            opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
+            try
+            {
+                opcode = (Opcode)Enum.Parse(typeof(Opcode), parts[0].ToUpper());
+            }
+            catch (ArgumentException)
+            {
+                throw new ArgumentException($"Opcode {parts[0].ToUpper()} on instruction {ErrorManager.HandleInstruction(index, 0)} is not valid");
+            }  
+
             if (parts[0] != "HALT")
                 operand.Parse(parts[1], index);
         }
